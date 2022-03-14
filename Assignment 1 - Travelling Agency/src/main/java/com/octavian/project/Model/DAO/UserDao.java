@@ -49,6 +49,38 @@ public class UserDao implements Dao<User>{
         }
     }
 
+    public User getByEmailAndPassword(String username,String password) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = ConnectionDB.getConnection();
+            stmt = conn.prepareStatement("SELECT * FROM users WHERE username=? AND password=?");
+            stmt.setString(1, username);
+            stmt.setString(2, ConnectionDB.encryptPassword(password));
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                User user = new User(rs.getInt("id"));
+                user.setName(rs.getString("name"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setRole(rs.getInt("userRole"));
+
+                return user;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            // e.printStackTrace();
+            return null;
+        } finally {
+            ConnectionDB.close(stmt);
+            ConnectionDB.close(conn);
+        }
+    }
+
     @Override
     public List<User> getAll() {
         Connection conn = null;

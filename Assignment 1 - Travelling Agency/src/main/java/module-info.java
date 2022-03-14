@@ -13,4 +13,6 @@ module com.octavian.project {
 
     opens com.octavian.project to javafx.fxml;
     exports com.octavian.project;
+    exports com.octavian.project.Controller;
+    opens com.octavian.project.Controller to javafx.fxml;
 }
