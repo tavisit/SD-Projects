@@ -96,7 +96,6 @@ public class VacationPackageDaoTest {
         packageDao.delete(testPackageSingle);
         packageDao.delete(vacationPackage);
         vacationDestinationDao.delete(testDestination);
-        vacationDestinationDao.delete(testDestination);
 
         testPackages.clear();
     }

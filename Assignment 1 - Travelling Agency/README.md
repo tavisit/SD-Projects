@@ -12,11 +12,13 @@
 * [Use Cases](#use-cases)
 * [Database](#database)
 * [Class Diagram](#class-diagram)
+* [Testing](#testing)
 * [Conclusions](#conclusions)
 
 <div style="page-break-after: always;"></div>
 
 # QR Code
+
 ![image](https://user-images.githubusercontent.com/28965189/158731091-0f0df726-d393-4eed-9199-99e95e1b9d1b.png)
 
 <div style="page-break-after: always;"></div>
@@ -76,9 +78,14 @@ Main actor: Client
 Main success scenario: 
 First, they will login, select the desired filters. After this step, the client should only see the desired information and after selecting the package, they should press a submit button. Following, the user should see the package in the already booked section.
 
+<div style="page-break-after: always;"></div>
+
 ## UML Use-Case Diagram
 
 ![image](https://raw.githubusercontent.com/tavisit/SD-Projects/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/Agency%20User%20use%20case.drawio.png)
+
+<div style="page-break-after: always;"></div>
+
 ![image](https://raw.githubusercontent.com/tavisit/SD-Projects/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/Normal%20User%20use%20case.drawio.png)
 
 <div style="page-break-after: always;"></div>
@@ -100,6 +107,7 @@ The application contains four databases that interact with eachother, in order t
 # Testing
 
 In order to test the implementation of the basic operations, a suite of unit tests was created and passed as seen in the following screenshot:
+
 ![image](https://github.com/tavisit/SD-Projects/blob/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/unitTests.png?raw=true)
 
 <div style="page-break-after: always;"></div>
