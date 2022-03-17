@@ -97,6 +97,17 @@ The application contains four databases that interact with eachother, in order t
 
 <div style="page-break-after: always;"></div>
 
+# Testing
+
+In order to test the implementation of the basic operations, a suite of unit tests was created and passed as seen in the following screenshot:
+![image](https://github.com/tavisit/SD-Projects/blob/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/unitTests.png?raw=true)
+
+<div style="page-break-after: always;"></div>
+
 # Conclusions
 
-The application taught me how to build a layered application using databases. In the same time, it taught me how to respect stakeholder's criteria and how to manage my time
+The application taught me how to build a layered application using databases. In the same time, it taught me how to respect stakeholder's criteria and how to manage my time. 
+Some screenshots in the application:
+![image](https://github.com/tavisit/SD-Projects/blob/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/LoginForm.png?raw=true)
+![image](https://github.com/tavisit/SD-Projects/blob/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/AgencyForm.png?raw=true)
+![image](https://github.com/tavisit/SD-Projects/blob/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/userForm.png?raw=true)
