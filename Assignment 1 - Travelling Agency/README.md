@@ -1,8 +1,6 @@
 ![UTCN](https://doctorat.utcluj.ro/images/utcn-logo.png)
 ## Student: Octavian-Mihai Matei
-## Group: 3043
-
-<div style="page-break-after: always;"></div>
+## Group: 30431
 
 # Travelling Agency
 
