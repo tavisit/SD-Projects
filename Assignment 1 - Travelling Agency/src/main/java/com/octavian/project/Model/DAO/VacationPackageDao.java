@@ -101,7 +101,7 @@ public class VacationPackageDao implements Dao<VacationPackage> {
 
         try {
             conn = ConnectionDB.getConnection();
-            stmt = conn.prepareStatement("SELECT * FROM vacationpackages ORDER BY id");
+            stmt = conn.prepareStatement("SELECT * FROM vacationpackages ORDER BY status desc , startDate, endDate");
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {

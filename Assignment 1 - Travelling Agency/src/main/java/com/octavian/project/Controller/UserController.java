@@ -1,5 +1,6 @@
 package com.octavian.project.Controller;
 
+import com.octavian.project.Model.Domain.BookedPackage;
 import com.octavian.project.Model.Domain.VacationPackage;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
@@ -7,6 +8,8 @@ import javafx.scene.text.Text;
 import javafx.util.Pair;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class UserController {
 
@@ -42,18 +45,23 @@ public class UserController {
         myVacationsText.setText("");
         MainController.getBookedPackageDao().getBookedPackages().clear();
         MainController.getBookedPackageDao().getAll();
-        MainController.getBookedPackageDao().getBookedPackages().forEach(
-          bookedPackage -> {if(bookedPackage.getUserID()==MainController.getCurrentUser().getId()){
-              String currentVacation = "";
-              VacationPackage vacationPackage = MainController.getVacationPackageDao().getById(bookedPackage.getPackageID());
-              currentVacation += "-- Location: " +MainController.getVacationDestinationDao().getById(vacationPackage.getVacationID()).getName();
-              currentVacation += "\n   Details: " + vacationPackage.getDetails();
-              currentVacation += "\n   Price: " + vacationPackage.getPrice();
-              currentVacation += "\n   From: " + vacationPackage.getStartDate();
-              currentVacation += "\n   To: " + vacationPackage.getEndDate();
-              myVacationsText.setText(myVacationsText.getText()+currentVacation + "\n");
-          }}
-        );
+        MainController.getBookedPackageDao().getBookedPackages().forEach(this::appendTextToVacation);
+    }
+
+    private void appendTextToVacation(BookedPackage bookedPackage)
+    {
+
+        if(bookedPackage.getUserID()==MainController.getCurrentUser().getId()){
+            String currentVacation="";
+            VacationPackage vacationPackage=MainController.getVacationPackageDao().getById(bookedPackage.getPackageID());
+            currentVacation+="-- Location: "+MainController.getVacationDestinationDao().getById(vacationPackage.getVacationID()).getName();
+            currentVacation+="\n   Details: "+vacationPackage.getDetails();
+            currentVacation+="\n   Price: "+vacationPackage.getPrice();
+            currentVacation+="\n   From: "+vacationPackage.getStartDate();
+            currentVacation+="\n   To: "+vacationPackage.getEndDate();
+            currentVacation+="\n   Status: "+vacationPackage.getStatusString();
+            myVacationsText.setText(myVacationsText.getText()+currentVacation+"\n");
+        }
     }
 
     @FXML
@@ -79,6 +87,7 @@ public class UserController {
                         currentVacation += ", Price: " + vacationPackage.getPrice();
                         currentVacation += ", From: " + vacationPackage.getStartDate();
                         currentVacation += ", To: " + vacationPackage.getEndDate();
+                        currentVacation += ", Status: " + vacationPackage.getStatusString();
                         locationAvailableChoice.getItems().add(currentVacation);
                 }}
         );

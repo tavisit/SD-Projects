@@ -2,7 +2,7 @@ package com.octavian.project.Model.Domain;
 
 import java.sql.Date;
 
-public class VacationPackage {
+public class VacationPackage implements Comparable{
     private int id;
     private int vacationID;
     private int price;
@@ -109,5 +109,12 @@ public class VacationPackage {
                 return "In progress";
         }
         return "";
+    }
+    @Override
+    public int compareTo(Object object) {
+        Date startCompare=((VacationPackage)object).getStartDate();
+        Date endCompare=((VacationPackage)object).getStartDate();
+        /* For Ascending order*/
+        return this.endDate.compareTo(endCompare);
     }
 }
