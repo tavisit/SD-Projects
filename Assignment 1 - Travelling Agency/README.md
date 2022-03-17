@@ -79,6 +79,8 @@ The application contains four databases that interact with eachother, in order t
 ![image](https://raw.githubusercontent.com/tavisit/SD-Projects/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/databaseDiagram.png)
 # Class Diagram
 
+![image](https://github.com/tavisit/SD-Projects/blob/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/ClassDiagram.drawio.png?raw=true)
+
 # Conclusions
 
 The application taught me how to build a layered application using databases. In the same time, it taught me how to respect stakeholder's criteria and how to manage my time
