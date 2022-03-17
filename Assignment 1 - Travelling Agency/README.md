@@ -2,6 +2,8 @@
 ## Student: Octavian-Mihai Matei
 ## Group: 30431
 
+<div style="page-break-after: always;"></div>
+
 # Travelling Agency
 
 # Table of contents
@@ -12,8 +14,12 @@
 * [Class Diagram](#class-diagram)
 * [Conclusions](#conclusions)
 
+<div style="page-break-after: always;"></div>
+
 # QR Code
 ![image](https://user-images.githubusercontent.com/28965189/158731091-0f0df726-d393-4eed-9199-99e95e1b9d1b.png)
+
+<div style="page-break-after: always;"></div>
 
 # Specifications
 
@@ -44,6 +50,8 @@ password)
 5. book a vacation
 6. view all its booked vacations
 
+<div style="page-break-after: always;"></div>
+
 # Use cases
 
 The project has two main users: normal user, who books packages, and the agency account, which creates and manages packages
@@ -72,14 +80,22 @@ First, they will login, select the desired filters. After this step, the client 
 
 ![image](https://raw.githubusercontent.com/tavisit/SD-Projects/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/Agency%20User%20use%20case.drawio.png)
 ![image](https://raw.githubusercontent.com/tavisit/SD-Projects/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/Normal%20User%20use%20case.drawio.png)
+
+<div style="page-break-after: always;"></div>
+
 # Database
 
 The application contains four databases that interact with eachother, in order to provide cascading features in case of creation/modification/delete operations
 
 ![image](https://raw.githubusercontent.com/tavisit/SD-Projects/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/databaseDiagram.png)
+
+<div style="page-break-after: always;"></div>
+
 # Class Diagram
 
 ![image](https://github.com/tavisit/SD-Projects/blob/Agency_Project/Assignment%201%20-%20Travelling%20Agency/Documentation%20Diagrams/ClassDiagram.drawio.png?raw=true)
+
+<div style="page-break-after: always;"></div>
 
 # Conclusions
 
