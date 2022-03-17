@@ -72,7 +72,7 @@ public class LoginController {
         String email = registerEmail.getText();
         String password = registerPassword.getText();
         String name = registerName.getText();
-        if(checkMail(email) && checkPassword(password) && name.length()>5)
+        if(checkMail(email) && checkPassword(password) && name.length()>0)
         {
             User myUser = new User(name,email,password,isNormalUser.isSelected());
             int code = MainController.getUserDao().save(myUser);
