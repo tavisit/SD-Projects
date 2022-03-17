@@ -10,6 +10,11 @@ public class VacationPackage {
     private String details;
     private Date startDate;
     private Date endDate;
+    /*
+    * 0 -> NOT_BOOKED
+    * 1 -> BOOKED
+    * 2 -> IN_PROGRESS
+    * */
     private int status;
 
     public VacationPackage(int id, int vacationID, int price, int numberOfPeople, String details, Date startDate, Date endDate, int status) {
@@ -90,5 +95,19 @@ public class VacationPackage {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getStatusString()
+    {
+        switch (status)
+        {
+            case 0:
+                return "Not booked";
+            case 1:
+                return "Fully booked";
+            case 2:
+                return "In progress";
+        }
+        return "";
     }
 }

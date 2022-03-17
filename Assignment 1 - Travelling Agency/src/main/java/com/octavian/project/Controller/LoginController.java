@@ -2,6 +2,7 @@ package com.octavian.project.Controller;
 
 import com.octavian.project.Model.Domain.User;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -32,6 +33,8 @@ public class LoginController {
     protected TextField registerEmail;
     @FXML
     protected PasswordField registerPassword;
+    @FXML
+    protected CheckBox isNormalUser;
 
     @FXML
     protected void login()
@@ -44,9 +47,22 @@ public class LoginController {
         }
         else
         {
-            warningLogin.setText("myUser is:"+myUser.getName());
-            warningLogin.setTextFill(Color.GREEN);
             MainController.setCurrentUser(myUser);
+            try{
+                if(myUser.getRole()==0)
+                {
+                    MainController.changeView(Pages.USER_PAGE);
+                }
+                else
+                {
+                    MainController.changeView(Pages.AGENCY_PAGE);
+                }
+            }catch (Exception ex)
+            {
+                warningLogin.setText("Something went wrong...");
+                warningLogin.setTextFill(Color.RED);
+
+            }
         }
     }
 
@@ -58,7 +74,7 @@ public class LoginController {
         String name = registerName.getText();
         if(checkMail(email) && checkPassword(password) && name.length()>5)
         {
-            User myUser = new User(name,email,password,0);
+            User myUser = new User(name,email,password,isNormalUser.isSelected());
             int code = MainController.getUserDao().save(myUser);
             if(code==-1)
             {
@@ -92,7 +108,7 @@ public class LoginController {
         {
             loginPane.setVisible(false);
             registerPane.setVisible(true);
-
+            isNormalUser.setSelected(true);
         }
     }
 

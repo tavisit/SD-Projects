@@ -122,7 +122,7 @@ public class BookedPackageDao implements Dao<BookedPackage>{
         } finally {
             ConnectionDB.close(stmt);
             ConnectionDB.close(conn);
-            bookedPackages.set(bookedPackages.indexOf(bookedPackage),bookedPackage);
+            bookedPackages.set(findIndexOfObjectInList(bookedPackage),bookedPackage);
         }
     }
 
@@ -143,7 +143,18 @@ public class BookedPackageDao implements Dao<BookedPackage>{
         } finally {
             ConnectionDB.close(stmt);
             ConnectionDB.close(conn);
-            bookedPackages.remove(bookedPackage);
+            bookedPackages.remove(bookedPackages.get(findIndexOfObjectInList(bookedPackage)));
         }
+    }
+
+    @Override
+    public int findIndexOfObjectInList(BookedPackage target) {
+        int index = 0;
+        for (BookedPackage obj : bookedPackages) {
+            if(target.getId() == obj.getId())
+                return index;
+            index++;
+        }
+        return -1;
     }
 }

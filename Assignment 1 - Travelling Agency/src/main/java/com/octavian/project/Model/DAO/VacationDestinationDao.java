@@ -2,6 +2,7 @@ package com.octavian.project.Model.DAO;
 
 import com.octavian.project.Model.Domain.User;
 import com.octavian.project.Model.Domain.VacationDestination;
+import com.octavian.project.Model.Domain.VacationPackage;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,6 +31,35 @@ public class VacationDestinationDao implements Dao<VacationDestination>{
             conn = ConnectionDB.getConnection();
             stmt = conn.prepareStatement("SELECT * FROM vacationdestination WHERE id=?");
             stmt.setInt(1, id);
+
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                VacationDestination vacationDestination = new VacationDestination(rs.getInt("id"));
+                vacationDestination.setName(rs.getString("name"));
+                vacationDestination.setDescription(rs.getString("description"));
+
+                return vacationDestination;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            // e.printStackTrace();
+            return null;
+        } finally {
+            ConnectionDB.close(stmt);
+            ConnectionDB.close(conn);
+        }
+    }
+
+    public VacationDestination getByName(String name) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try {
+            conn = ConnectionDB.getConnection();
+            stmt = conn.prepareStatement("SELECT * FROM vacationdestination WHERE name=?");
+            stmt.setString(1, name);
 
             ResultSet rs = stmt.executeQuery();
 
@@ -123,7 +153,8 @@ public class VacationDestinationDao implements Dao<VacationDestination>{
         } finally {
             ConnectionDB.close(stmt);
             ConnectionDB.close(conn);
-            vacationDestinations.set(vacationDestinations.indexOf(vacationDestination),vacationDestination);
+
+            vacationDestinations.set(findIndexOfObjectInList(vacationDestination),vacationDestination);
         }
     }
 
@@ -144,7 +175,20 @@ public class VacationDestinationDao implements Dao<VacationDestination>{
         } finally {
             ConnectionDB.close(stmt);
             ConnectionDB.close(conn);
-            vacationDestinations.remove(vacationDestination);
+            vacationDestinations.remove(vacationDestinations.get(findIndexOfObjectInList(vacationDestination)));
         }
     }
+
+    public int findIndexOfObjectInList(VacationDestination target)
+    {
+        int index = 0;
+        for (VacationDestination obj : vacationDestinations) {
+            if(target.getId() == obj.getId())
+                return index;
+            index++;
+        }
+        return -1;
+    }
+
+
 }

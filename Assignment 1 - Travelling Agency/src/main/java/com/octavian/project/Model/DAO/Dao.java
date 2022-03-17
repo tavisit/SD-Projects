@@ -1,5 +1,6 @@
 package com.octavian.project.Model.DAO;
 import com.octavian.project.Model.Domain.User;
+import com.octavian.project.Model.Domain.VacationDestination;
 
 import java.util.*;
 public interface Dao<T> {
@@ -10,4 +11,5 @@ public interface Dao<T> {
     int save(T t);
     int update(T t);
     int delete(T t);
+    int findIndexOfObjectInList(T target);
 }

@@ -1,6 +1,7 @@
 package com.octavian.project.Model.DAO;
 
 import com.octavian.project.Model.Domain.User;
+import com.octavian.project.Model.Domain.VacationPackage;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -158,7 +159,7 @@ public class UserDao implements Dao<User>{
         } finally {
             ConnectionDB.close(stmt);
             ConnectionDB.close(conn);
-            users.set(users.indexOf(user),user);
+            users.set(findIndexOfObjectInList(user),user);
         }
     }
 
@@ -179,7 +180,18 @@ public class UserDao implements Dao<User>{
         } finally {
             ConnectionDB.close(stmt);
             ConnectionDB.close(conn);
-            users.remove(user);
+            users.remove(users.get(findIndexOfObjectInList(user)));
         }
+    }
+
+    @Override
+    public int findIndexOfObjectInList(User target) {
+        int index = 0;
+        for (User obj : users) {
+            if(target.getId() == obj.getId())
+                return index;
+            index++;
+        }
+        return -1;
     }
 }

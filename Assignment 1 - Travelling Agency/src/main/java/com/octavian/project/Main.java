@@ -1,6 +1,7 @@
 package com.octavian.project;
 
 import com.octavian.project.Controller.MainController;
+import com.octavian.project.Controller.Pages;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,10 +14,8 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         MainController.getInstance();
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("View/Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 450);
-        stage.setScene(scene);
-        stage.show();
+        MainController.setStage(stage);
+        MainController.changeView(Pages.LOGIN_PAGE);
     }
 
     public static void main(String[] args) {

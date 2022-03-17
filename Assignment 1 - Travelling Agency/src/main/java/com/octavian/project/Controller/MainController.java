@@ -1,10 +1,16 @@
 package com.octavian.project.Controller;
 
+import com.octavian.project.Main;
 import com.octavian.project.Model.DAO.BookedPackageDao;
 import com.octavian.project.Model.DAO.UserDao;
 import com.octavian.project.Model.DAO.VacationDestinationDao;
 import com.octavian.project.Model.DAO.VacationPackageDao;
 import com.octavian.project.Model.Domain.User;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class MainController {
     private static User currentUser;
@@ -14,6 +20,7 @@ public class MainController {
     private static BookedPackageDao bookedPackageDao;
 
     private static MainController instance;
+    private static Stage stage;
 
     private MainController(UserDao userDao,
                            VacationDestinationDao vacationDestinationDao,
@@ -50,6 +57,45 @@ public class MainController {
             instance = new MainController(userDao,vacationDestinationDao,vacationPackageDao,bookedPackageDao);
             return instance;
         }
+    }
+
+    public static void resetController()
+    {
+        UserDao userDao = new UserDao();
+        VacationDestinationDao vacationDestinationDao = new VacationDestinationDao();
+        VacationPackageDao vacationPackageDao = new VacationPackageDao();
+        BookedPackageDao bookedPackageDao = new BookedPackageDao();
+        instance = new MainController(userDao,vacationDestinationDao,vacationPackageDao,bookedPackageDao);
+    }
+
+    public static void changeView(Pages page) throws IOException {
+        FXMLLoader fxmlLoader;
+        Scene scene = null;
+        switch (page){
+            case AGENCY_PAGE :
+                fxmlLoader = new FXMLLoader(Main.class.getResource("View/AgencyView.fxml"));
+                scene = new Scene(fxmlLoader.load(), 1000, 600);
+                break;
+            case USER_PAGE:
+                fxmlLoader = new FXMLLoader(Main.class.getResource("View/UserView.fxml"));
+                scene = new Scene(fxmlLoader.load(), 1000, 850);
+                break;
+            case LOGIN_PAGE:
+                currentUser = null;
+                fxmlLoader = new FXMLLoader(Main.class.getResource("View/Login.fxml"));
+                scene = new Scene(fxmlLoader.load(), 1000, 450);
+                break;
+        }
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static void setStage(Stage stage) {
+        MainController.stage = stage;
     }
 
     public static UserDao getUserDao() {
