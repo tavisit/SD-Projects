@@ -78,7 +78,7 @@ public class MainController {
                 break;
             case USER_PAGE:
                 fxmlLoader = new FXMLLoader(Main.class.getResource("View/UserView.fxml"));
-                scene = new Scene(fxmlLoader.load(), 1000, 850);
+                scene = new Scene(fxmlLoader.load(), 1000, 750);
                 break;
             case LOGIN_PAGE:
                 currentUser = null;

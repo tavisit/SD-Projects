@@ -49,11 +49,6 @@
             <TextField fx:id="newLocationName" layoutX="132.0" layoutY="206.0" />
             <TextField fx:id="newLocationDescription" layoutX="132.0" layoutY="233.0" />
             <Button layoutX="132.0" layoutY="266.0" mnemonicParsing="false" onAction="#saveNewLocation" text="Save new location" />
-            <Text layoutX="438.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" textAlignment="CENTER">
-               <font>
-                  <Font size="28.0" />
-               </font>
-            </Text>
             <Text layoutX="88.0" layoutY="181.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New destination">
                <font>
                   <Font size="25.0" />
