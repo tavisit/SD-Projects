@@ -5,6 +5,7 @@ import com.backend.Data.DTOs.FoodcategoryDto;
 import com.backend.Data.DTOs.FoodstatusDto;
 import com.backend.Data.DTOs.OrderDto;
 import com.backend.Data.DTOs.UserDto;
+import com.backend.Data.Entities.Order;
 import com.backend.Data.Repositories.FoodcategoryRepository;
 import com.backend.Data.Repositories.FoodstatusRepository;
 import com.backend.Data.Repositories.OrderRepository;
@@ -26,9 +27,14 @@ public class OrderService {
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
         return mapStructMapper.orderToOrderDto(orderRepository.getById(id));
     }
-    public List<OrderDto> getAllOrders(UserDto client){
+    public List<OrderDto> getAllOrdersOfClient(UserDto client){
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
         return mapStructMapper.listOrderDtoToOrder(orderRepository.getAllByUser(mapStructMapper.userDtoToUser(client)));
+    }
+
+    public List<OrderDto> getAllOrdersOfRestaurant(UserDto restaurant){
+        MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
+        return mapStructMapper.listOrderDtoToOrder(orderRepository.getAllByRestaurant(mapStructMapper.userDtoToUser(restaurant)));
     }
 
     public OrderDto createNewOrder(UserDto client, UserDto restaurantDto){
@@ -39,7 +45,8 @@ public class OrderService {
         orderDto.setPrice(0);
 
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
-        return mapStructMapper.orderToOrderDto(orderRepository.save(mapStructMapper.orderDtoToOrder(orderDto)));
+        Order order = orderRepository.save(mapStructMapper.orderDtoToOrder(orderDto));
+        return mapStructMapper.orderToOrderDto(order);
     }
 
     public  OrderDto updateOrder(OrderDto orderDto){
@@ -51,6 +58,6 @@ public class OrderService {
 
     private FoodstatusDto createNewOrderCategory(){
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
-        return mapStructMapper.foodStatusDtoToStatusCategory(foodstatusRepository.getById(2));
+        return mapStructMapper.foodStatusToFoodStatusDto(foodstatusRepository.getById(2));
     }
 }

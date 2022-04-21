@@ -15,4 +15,5 @@ public class RestaurantfoodDto implements Serializable {
     private String foodDescription;
     private FoodcategoryDto foodCategory;
     private Integer price;
+    private Integer quantity;
 }

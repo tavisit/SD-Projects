@@ -25,6 +25,22 @@ public class Order {
     @Column(name = "price", nullable = false)
     private Integer price;
 
+    public UserClass getUserClass() {
+        return userClass;
+    }
+
+    public void setUserClass(UserClass userClass) {
+        this.userClass = userClass;
+    }
+
+    public Integer getPrice() {
+        return price;
+    }
+
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+
     public Foodstatus getStatus() {
         return status;
     }

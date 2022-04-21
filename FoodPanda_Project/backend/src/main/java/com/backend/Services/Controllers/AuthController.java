@@ -25,10 +25,12 @@ public class AuthController {
         httpHeaders.add("Responded", "AuthController::createUser");
 
         try {
-            buyerFacade.createUser(userDto);
+            System.out.println(userDto.getRole().getName());
+            userDto = buyerFacade.createUser(userDto);
 
             return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully registered new user " + userDto.getEmail())
                     .withHttpHeader(httpHeaders)
+                    .withData(userDto)
                     .build();
         } catch (Exception ex) {
             return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())

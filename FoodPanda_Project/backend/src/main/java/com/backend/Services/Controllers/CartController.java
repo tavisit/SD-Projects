@@ -1,10 +1,7 @@
 package com.backend.Services.Controllers;
 
 import com.backend.Common.mappers.MapStructMapperImpl;
-import com.backend.Data.DTOs.FoodcategoryDto;
-import com.backend.Data.DTOs.OrderDto;
-import com.backend.Data.DTOs.RestaurantfoodDto;
-import com.backend.Data.DTOs.UserDto;
+import com.backend.Data.DTOs.*;
 import com.backend.Services.Response.ApiResponse;
 import com.backend.Services.Services.BuyerFacade;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,18 +13,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cart/{userId}")
+@RequestMapping("/cart")
 public class CartController {
     @Autowired
     private BuyerFacade buyerFacade;
 
-    @GetMapping("/getCart")
-    public ResponseEntity<ApiResponse> getCart(@PathVariable Integer userId){
+    @PostMapping("/getCart")
+    public ResponseEntity<ApiResponse> getCart(@RequestBody UserDto userSite){
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Responded", "BuyerController::getByName");
+        httpHeaders.add("Responded", "CartController::getCart");
         try {
-            MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
-            List<RestaurantfoodDto> userCart = buyerFacade.seeCart(buyerFacade.getClientById(userId));
+            List<RestaurantfoodDto> userCart = buyerFacade.seeCart(userSite);
             return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved cart")
                     .withHttpHeader(httpHeaders)
                     .withData(userCart)
@@ -40,13 +36,15 @@ public class CartController {
         }
     }
     @PostMapping("/delete")
-    public ResponseEntity<ApiResponse> deleteCart(@PathVariable Integer userId){
+    public ResponseEntity<ApiResponse> deleteCart(@RequestBody UserDto userSite){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Responded", "CartController::deleteCart");
         try {
-            buyerFacade.emptyCart(buyerFacade.getClientById(userId));
+            UserDto userDto = userSite;
+            userDto = buyerFacade.emptyCart(userDto);
             return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully emptied Cart")
                     .withHttpHeader(httpHeaders)
+                    .withData(userDto)
                     .build();
 
         } catch (Exception ex) {
@@ -57,16 +55,17 @@ public class CartController {
     }
 
     @PostMapping("/addToCart")
-    public ResponseEntity<ApiResponse> addToCart(@PathVariable Integer userId, @RequestBody RestaurantfoodDto restaurantfoodDto) {
+    public ResponseEntity<ApiResponse> addToCart(@RequestBody AddCartDto addCartDto){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Responded", "CartController::addToCart");
 
         try {
-            buyerFacade.addToCart(buyerFacade.getClientById(userId),restaurantfoodDto);
+            UserDto userDto = buyerFacade.addToCart(addCartDto.getUserDto(),addCartDto.getRestaurantfoodDto());
             // send email to restaurant when you order
 
             return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully added to cart")
                     .withHttpHeader(httpHeaders)
+                    .withData(userDto)
                     .build();
 
         } catch (Exception ex) {
@@ -77,14 +76,16 @@ public class CartController {
     }
 
     @PostMapping("/submitOrder")
-    public ResponseEntity<ApiResponse> submitOrder(@PathVariable Integer userId, @RequestBody List<RestaurantfoodDto> cartList){
+    public ResponseEntity<ApiResponse> submitOrder(@RequestBody UserDto userSite){
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Responded", "BuyerController::getByName");
+        httpHeaders.add("Responded", "CartController::submitOrder");
         try {
-            buyerFacade.createNewOrder(buyerFacade.getClientById(userId),cartList);
+            UserDto userDto = userSite;
+            userDto = buyerFacade.createNewOrder(userDto,userDto.getMyCart());
 
             return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully placed order")
                     .withHttpHeader(httpHeaders)
+                    .withData(userDto)
                     .build();
 
         } catch (Exception ex) {

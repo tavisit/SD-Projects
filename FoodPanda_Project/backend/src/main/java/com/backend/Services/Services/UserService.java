@@ -18,12 +18,13 @@ public class UserService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    public void createUser(UserDto userDTO) throws Exception {
+    public UserDto createUser(UserDto userDTO) throws Exception {
         UserValidator.isUserValid(userDTO, userRepository);
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
         UserClass userClass = mapStructMapper.userDtoToUser(userDTO);
         userClass.setPassword(passwordEncoder.encode(userDTO.getPassword()));
-        userRepository.save(userClass);
+        userClass = userRepository.save(userClass);
+        return mapStructMapper.userToUserDto(userClass);
     }
 
     public UserDto findUser(String email, String password) throws Exception {

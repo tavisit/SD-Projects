@@ -11,4 +11,7 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 
     @Query("Select order from Order order where order.userClass=:user")
     public List<Order> getAllByUser(UserClass user);
+
+    @Query("Select order from Order order where order.restaurant=:user")
+    public List<Order> getAllByRestaurant(UserClass user);
 }

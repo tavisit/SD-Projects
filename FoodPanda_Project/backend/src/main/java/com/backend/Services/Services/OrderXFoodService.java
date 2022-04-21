@@ -1,10 +1,8 @@
 package com.backend.Services.Services;
 
 import com.backend.Common.mappers.MapStructMapperImpl;
-import com.backend.Data.DTOs.OrderDto;
-import com.backend.Data.DTOs.OrderXFoodDto;
-import com.backend.Data.DTOs.RestaurantfoodDto;
-import com.backend.Data.DTOs.UserDto;
+import com.backend.Data.DTOs.*;
+import com.backend.Data.Entities.OrderXFood;
 import com.backend.Data.Entities.Restaurantfood;
 import com.backend.Data.Repositories.OrderXFoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class OrderXFoodService {
@@ -40,6 +39,23 @@ public class OrderXFoodService {
 
     public void addElement(List<OrderXFoodDto> orderXFoodDtos){
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
-        orderXFoodRepository.saveAll(mapStructMapper.listOrderXFoodDtoToOrderXFood(orderXFoodDtos));
+        List<OrderXFood> orderXFoodsList = mapStructMapper.listOrderXFoodDtoToOrderXFood(orderXFoodDtos);
+        orderXFoodRepository.saveAll(orderXFoodsList);
+    }
+
+    public List<OrderWithDetailsDto> getOrdersWithDetailsFromOrderList(List<OrderDto> orders){
+        List<OrderWithDetailsDto> actualOrders = new ArrayList<>();
+        orders.forEach(orderDto -> {
+            List<RestaurantfoodDto> food = this.getAllByOrder(orderDto);
+            AtomicInteger price = new AtomicInteger();
+            food.forEach(foodDto -> price.addAndGet(foodDto.getPrice()));
+            OrderWithDetailsDto currentOrderWithDetails = new OrderWithDetailsDto();
+            currentOrderWithDetails.setFoodDtoList(food);
+            currentOrderWithDetails.setOrder(orderDto);
+            currentOrderWithDetails.setPrice(price.get());
+            actualOrders.add(currentOrderWithDetails);
+        });
+
+        return actualOrders;
     }
 }

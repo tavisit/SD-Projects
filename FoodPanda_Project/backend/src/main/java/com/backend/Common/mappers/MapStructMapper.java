@@ -24,26 +24,29 @@ public interface MapStructMapper {
 
     FoodcategoryDto foodCategoryDtoToFoodCategory(Foodcategory foodcategory);
 
-    Foodstatus foodStatusToFoodStatusDto(FoodstatusDto foodstatusDto);
+    FoodstatusDto foodStatusToFoodStatusDto(Foodstatus foodstatus);
 
-    FoodstatusDto foodStatusDtoToStatusCategory(Foodstatus foodstatus);
+    Foodstatus foodStatusDtoToStatus(FoodstatusDto foodstatusDto);
 
-    RestaurantfoodDto restaurantFoodToRestaurantFoodDto(Restaurantfood restaurantfoodDto);
+    RestaurantfoodDto restaurantFoodToRestaurantFoodDto(Restaurantfood restaurantfood);
 
-    Restaurantfood restaurantFoodDtoToRestaurantFood(RestaurantfoodDto restaurantfood);
+    Restaurantfood restaurantFoodDtoToRestaurantFood(RestaurantfoodDto restaurantfoodDto);
 
-    List<Restaurantfood> listRestaurantFoodDtoToRestaurantFood(List<RestaurantfoodDto> restaurantfood);
+    List<Restaurantfood> listRestaurantFoodDtoToRestaurantFood(List<RestaurantfoodDto> restaurantfoodDtoList);
+
+    List<RestaurantfoodDto> listRestaurantFoodToRestaurantFoodDto(List<Restaurantfood> restaurantfoodList);
 
     OrderDto orderToOrderDto(Order order);
 
-    Order orderDtoToOrder(OrderDto order);
+    Order orderDtoToOrder(OrderDto orderDto);
 
-    List<OrderDto> listOrderDtoToOrder(List<Order> order);
+    List<OrderDto> listOrderDtoToOrder(List<Order> orderList);
 
     OrderXFood orderXFoodDtoToOrderXFood(OrderXFoodDto orderXFoodDto);
 
     OrderXFoodDto orderXFoodToOrderXFoodDto(OrderXFood orderXFood);
 
-    List<OrderXFoodDto> listOrderXFoodToOrderXFoodDto(List<OrderXFood> orderXFood);
-    List<OrderXFood> listOrderXFoodDtoToOrderXFood(List<OrderXFoodDto> orderXFoodDto);
+    List<OrderXFoodDto> listOrderXFoodToOrderXFoodDto(List<OrderXFood> orderXFoodList);
+
+    List<OrderXFood> listOrderXFoodDtoToOrderXFood(List<OrderXFoodDto> orderXFoodDtoList);
 }
