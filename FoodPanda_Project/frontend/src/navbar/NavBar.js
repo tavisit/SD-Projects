@@ -13,10 +13,10 @@ import FormGroup from '@mui/material/FormGroup';
 import './NavBar.css'
 import LocalStorageHelper from '../common/localStorageMethods'
 
-const ResponsiveAppBar = () => {
+const NavBar = (typeUser) => {
     let navigate = useNavigate();
 
-    const handleChange = (event) => {
+    const handleChange = () => {
         LocalStorageHelper.logout();
         navigate('/login');
       };
@@ -25,25 +25,34 @@ const ResponsiveAppBar = () => {
         <AppBar position="static">
         <Container maxWidth="xl">
             <Toolbar>
-
-                <Box className={'navlinks'}>
-                    <Link to='/buyer' className={'link'}>
-                        Restaurants
-                    </Link>
-                    <Link to='/cart' className={'link'}>
-                        My Cart
-                    </Link>
-                    <Link to='/my-orders' className={'link'}>
-                        My Order History
-                    </Link>
-                </Box>
-
+                {typeUser.typeUser=='buyer'? (
+                    <Box className={'navlinks'}>
+                        <Link to='/buyer' className={'link'}>
+                            Restaurants
+                        </Link>
+                        <Link to='/cart' className={'link'}>
+                            My Cart
+                        </Link>
+                        <Link to='/order_client' className={'link'}>
+                            My Order History
+                        </Link>
+                    </Box>
+                ):(
+                    <Box className={'navlinks'}>
+                        <Link to='/buyer' className={'link'}>
+                            My Food
+                        </Link>
+                        <Link to='/cart' className={'link'}>
+                            My Orders
+                        </Link>
+                    </Box>
+                )}
                 <FormGroup>
                     <FormControlLabel
                         control={
                             <Button
                                 onClick={handleChange}
-                                aria-label="login switch"
+                                aria-label="Logout"
                                 color='secondary'
                             />
                         }
@@ -62,4 +71,4 @@ const ResponsiveAppBar = () => {
     </AppBar>
   );
 };
-export default ResponsiveAppBar;
+export default NavBar;

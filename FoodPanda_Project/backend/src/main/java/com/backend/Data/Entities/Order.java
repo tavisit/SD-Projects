@@ -1,9 +1,18 @@
 package com.backend.Data.Entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "orders")
+@Getter
+@Setter
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,51 +34,12 @@ public class Order {
     @Column(name = "price", nullable = false)
     private Integer price;
 
-    public UserClass getUserClass() {
-        return userClass;
-    }
+    @Column(name = "longitude")
+    private Float longitude;
 
-    public void setUserClass(UserClass userClass) {
-        this.userClass = userClass;
-    }
+    @Column(name = "latitude")
+    private Float latitude;
 
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public Foodstatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(Foodstatus status) {
-        this.status = status;
-    }
-
-    public UserClass getUser() {
-        return userClass;
-    }
-
-    public void setUser(UserClass userClass) {
-        this.userClass = userClass;
-    }
-
-    public UserClass getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(UserClass restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    @Column(name = "additional_information")
+    private String additionalInformation;
 }

@@ -10,9 +10,9 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<UserClass, Integer> {
     UserClass findByEmail(String email);
 
-    @Query("Select a from UserClass a where a.role=:restaurantRole")
-    List<UserClass> getAll(Role restaurantRole);
+    @Query("Select a from UserClass a where a.location.city=:location and a.role=:restaurantRole")
+    List<UserClass> getAllByLocationAndRole(String location,Role restaurantRole);
 
-    @Query("Select a from UserClass a where a.name like %:name% and a.role=:restaurantRole")
-    List<UserClass> getByPartialName(String name,Role restaurantRole);
+    @Query("Select a from UserClass a where a.name like %:name% and a.role=:restaurantRole and a.location.city=:location")
+    List<UserClass> getByPartialNameAndLocation(String name,Role restaurantRole, String location);
 }

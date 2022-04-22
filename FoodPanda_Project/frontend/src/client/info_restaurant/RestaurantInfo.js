@@ -6,9 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import NavBar from '../../navbar/NavBar';
 import './RestaurantInfo.css';
 import config from '../../config.json'
-import SimpleError from '../../errors/SimpleError';
+import SimpleError from '../../pop_messages/SimpleError';
 import LocalStorageHelper from '../../common/localStorageMethods';
-import { KeyboardReturnTwoTone } from '@mui/icons-material';
 import RestaurantFoodItem from './RestaurantFoodItem';
 
 const API_GET_USER = config.apiRoot;
@@ -79,11 +78,10 @@ function RestaurantInfo() {
             setOpen(false);
           }}
         />        
-          <NavBar />
+          <NavBar typeUser='buyer'/>
           <div className="container">
             <h2>Available Food</h2>
-            {
-                foodCategories.length ? (
+                {foodCategories.length ? (
                     <div>
                         {foodCategories.map((category) => (
                             <>

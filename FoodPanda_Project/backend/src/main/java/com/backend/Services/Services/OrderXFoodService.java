@@ -29,7 +29,11 @@ public class OrderXFoodService {
         List<OrderXFoodDto> ordersList = mapStructMapper.listOrderXFoodToOrderXFoodDto(
                 orderXFoodRepository.getAllByOrder(mapStructMapper.orderDtoToOrder(orderDto)));
         List<RestaurantfoodDto> foodInOrder = new ArrayList<>();
-        ordersList.forEach(order -> foodInOrder.add(order.getFood()));
+        ordersList.forEach(order -> {
+            RestaurantfoodDto restaurantfoodDto = order.getFood();
+            restaurantfoodDto.setQuantity(order.getQuantity());
+            foodInOrder.add(restaurantfoodDto);
+        });
         return foodInOrder;
     }
 
@@ -48,7 +52,7 @@ public class OrderXFoodService {
         orders.forEach(orderDto -> {
             List<RestaurantfoodDto> food = this.getAllByOrder(orderDto);
             AtomicInteger price = new AtomicInteger();
-            food.forEach(foodDto -> price.addAndGet(foodDto.getPrice()));
+            food.forEach(foodDto -> price.addAndGet(foodDto.getPrice()*foodDto.getQuantity()));
             OrderWithDetailsDto currentOrderWithDetails = new OrderWithDetailsDto();
             currentOrderWithDetails.setFoodDtoList(food);
             currentOrderWithDetails.setOrder(orderDto);

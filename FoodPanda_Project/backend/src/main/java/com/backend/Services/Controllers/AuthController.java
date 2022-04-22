@@ -1,15 +1,18 @@
 package com.backend.Services.Controllers;
 
+import com.backend.Data.DTOs.LocationDto;
 import com.backend.Data.DTOs.UserDto;
 import com.backend.Services.Response.ApiResponse;
 import com.backend.Services.Services.BuyerFacade;
+import com.backend.Services.Services.LocationService;
 import com.backend.Services.Services.UserService;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
@@ -18,6 +21,8 @@ public class AuthController {
     private BuyerFacade buyerFacade;
     @Autowired
     private UserService userService;
+    @Autowired
+    private LocationService locationService;
 
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> createUser(@RequestBody UserDto userDto) {
@@ -25,7 +30,6 @@ public class AuthController {
         httpHeaders.add("Responded", "AuthController::createUser");
 
         try {
-            System.out.println(userDto.getRole().getName());
             userDto = buyerFacade.createUser(userDto);
 
             return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully registered new user " + userDto.getEmail())
@@ -50,6 +54,26 @@ public class AuthController {
             return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(),  "Successfully logged in user.")
                     .withHttpHeader(httpHeaders)
                     .withData(user)
+                    .build();
+
+        } catch (Exception ex) {
+            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+                    .withHttpHeader(httpHeaders)
+                    .build();
+        }
+    }
+
+    @GetMapping("/register/location")
+    public ResponseEntity<ApiResponse> getLocations() {
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Responded", "AuthController::loginUser");
+
+        try {
+            List<LocationDto> locationDto = locationService.getAllLocations();
+
+            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(),  "Successfully logged in user.")
+                    .withHttpHeader(httpHeaders)
+                    .withData(locationDto)
                     .build();
 
         } catch (Exception ex) {

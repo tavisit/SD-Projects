@@ -5,10 +5,8 @@ import com.backend.Common.mappers.MapStructMapperImpl;
 import com.backend.Data.DTOs.*;
 import com.backend.Data.Entities.Role;
 import com.backend.Data.Entities.UserClass;
-import com.backend.Data.Repositories.OrderXFoodRepository;
 import com.backend.Data.Repositories.RoleRepository;
 import com.backend.Data.Repositories.UserRepository;
-import com.google.inject.internal.util.Iterables;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Stream;
 
 @Service
 public class BuyerFacade {
@@ -34,6 +30,8 @@ public class BuyerFacade {
     @Autowired
     private OrderService orderService;
     @Autowired
+    private LocationService locationService;
+    @Autowired
     private RestaurantFoodService restaurantFoodService;
 
     public UserDto getClientById(Integer id) throws Exception{
@@ -46,17 +44,18 @@ public class BuyerFacade {
 
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
         userDTO.setRole(mapStructMapper.roleToRoleDto(roleRepository.getByName(userDTO.getRole().getName())));
+        userDTO.setLocation(locationService.getLocationByName(userDTO.getLocation().getCity()));
         return userService.createUser(userDTO);
     }
 
-    public List<UserClass> getAllRestaurants(){
+    public List<UserClass> getAllRestaurants(String location){
         Role role = roleRepository.getByName("restaurant");
-        return userRepository.getAll(role);
+        return userRepository.getAllByLocationAndRole(location, role);
     }
 
-    public List<UserClass> getByName(String name) {
+    public List<UserClass> getByName(String name, String location) {
         Role role = roleRepository.getByName("restaurant");
-        return userRepository.getByPartialName(name,role);
+        return userRepository.getByPartialNameAndLocation(name,role, location);
     }
 
     public UserDto addToCart(@NotNull UserDto userDto, RestaurantfoodDto restaurantfoodDto) throws Exception{
@@ -113,9 +112,9 @@ public class BuyerFacade {
     }
 
 
-    public UserDto createNewOrder(UserDto userDto, @NotNull List<RestaurantfoodDto> restaurantfoodDtos) throws Exception{
+    public UserDto createNewOrder(UserDto userDto, @NotNull List<RestaurantfoodDto> restaurantfoodDtos, OrderAdditionalDto orderAdditional) throws Exception{
         // create Order
-        OrderDto orderDto = orderService.createNewOrder(userDto,restaurantfoodDtos.get(0).getRestaurant());
+        OrderDto orderDto = orderService.createNewOrder(userDto,restaurantfoodDtos.get(0).getRestaurant(),orderAdditional);
         // create OrderXFood
         restaurantfoodDtos.forEach(restaurantfoodDto -> {
             orderDto.setPrice(orderDto.getPrice() + restaurantfoodDto.getQuantity()*restaurantfoodDto.getPrice());
@@ -123,13 +122,15 @@ public class BuyerFacade {
 
         ArrayList<OrderXFoodDto> orderDtos = new ArrayList<>();
         restaurantfoodDtos.forEach(restaurantfoodDto -> {
-            OrderXFoodDto newEntity = new OrderXFoodDto();
-            newEntity.setFood(restaurantfoodDto);
-            newEntity.setOrder(orderDto);
-            newEntity.setQuantity(restaurantfoodDto.getQuantity());
-            orderDtos.add(newEntity);
+            if(restaurantfoodDto.getQuantity()>0)
+            {
+                OrderXFoodDto newEntity = new OrderXFoodDto();
+                newEntity.setFood(restaurantfoodDto);
+                newEntity.setOrder(orderDto);
+                newEntity.setQuantity(restaurantfoodDto.getQuantity());
+                orderDtos.add(newEntity);
+            }
         });
-
         orderService.updateOrder(orderDto);
         orderXFoodService.addElement(orderDtos);
 
@@ -147,4 +148,7 @@ public class BuyerFacade {
         return restaurantFoodService.getFoodsByResturant(userDto);
     }
 
+    public List<FoodstatusDto> getStatuses() throws  Exception{
+        return orderService.getOrderStatuses();
+    }
 }

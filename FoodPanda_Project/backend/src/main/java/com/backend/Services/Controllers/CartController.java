@@ -1,9 +1,9 @@
 package com.backend.Services.Controllers;
 
-import com.backend.Common.mappers.MapStructMapperImpl;
 import com.backend.Data.DTOs.*;
 import com.backend.Services.Response.ApiResponse;
 import com.backend.Services.Services.BuyerFacade;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -75,13 +75,13 @@ public class CartController {
         }
     }
 
-    @PostMapping("/submitOrder")
-    public ResponseEntity<ApiResponse> submitOrder(@RequestBody UserDto userSite){
+    @PostMapping("/submitOrder/{orderAdditional}")
+    public ResponseEntity<ApiResponse> submitOrder(@RequestBody UserDto userSite,@PathVariable String orderAdditional){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Responded", "CartController::submitOrder");
         try {
             UserDto userDto = userSite;
-            userDto = buyerFacade.createNewOrder(userDto,userDto.getMyCart());
+            userDto = buyerFacade.createNewOrder(userDto,userDto.getMyCart(), new ObjectMapper().readValue(orderAdditional, OrderAdditionalDto.class));
 
             return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully placed order")
                     .withHttpHeader(httpHeaders)

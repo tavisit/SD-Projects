@@ -7,7 +7,7 @@ import com.backend.Data.Repositories.UserRepository;
 
 public class OrderValidator {
     public static void OrderValidator(Order orderDto, UserRepository userRepository) throws Exception {
-        isValidClient(orderDto.getUser().getId(),userRepository);
+        isValidClient(orderDto.getUserClass().getId(),userRepository);
         isValidRestaurantId(orderDto.getRestaurant().getId(),userRepository);
     }
 

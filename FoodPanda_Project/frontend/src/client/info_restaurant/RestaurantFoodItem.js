@@ -9,7 +9,7 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActionArea } from '@mui/material';
-import SimpleError from '../../errors/SimpleError';
+import SimpleError from '../../pop_messages/SimpleError';
 
 const API_GET_USER = config.apiRoot;
 function RestaurantFoodItem(item) {
@@ -23,6 +23,9 @@ function RestaurantFoodItem(item) {
     })
   
     const handleClick = (event) => {
+
+      localStorage.setItem("currentShop",item.restaurant.id);
+
       event.preventDefault();
       const data = {
             id:item.id,
@@ -37,7 +40,6 @@ function RestaurantFoodItem(item) {
         userDto: LocalStorageHelper.getUser(),
         restaurantfoodDto: data
       };
-      console.log(complexData);
       const requestOptions = {
         method: 'POST',
         headers: {

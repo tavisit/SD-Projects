@@ -3,6 +3,8 @@ import { useNavigate} from 'react-router-dom';
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import MenuItem from '@mui/material/MenuItem';
+import Select from '@mui/material/Select';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
@@ -14,7 +16,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import config from '../config.json'
-import SimpleError from '../errors/SimpleError';
+import SimpleError from '../pop_messages/SimpleError';
 import { Checkbox } from '@mui/material';
 import LocalStorageHelper from '../common/localStorageMethods'
 
@@ -24,16 +26,39 @@ const ERROR_TITLE = "Register Error";
 
 export default function SignUp() {
   let navigate = useNavigate();
-    const [open, setOpen] = React.useState(false);
-    const [error, setError] = React.useState("");
+  const [locationList, setLocationList] = React.useState([]);
 
+  const [open, setOpen] = React.useState(false);
+  const [error, setError] = React.useState("");
+
+  const fetchLocations = () => {
+    if(locationList.length > 0) return;
+
+    const requestOptions = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }
+    };
+
+    fetch(API_REGISTER+"/location", requestOptions)
+        .then(response => response.json())
+        .then(response => {
+            if (response.httpStatusCode !== 200)
+                throw new Error(response.message);
+                setLocationList(response.data);
+        })
+        .catch(err => {
+        });
+      }
+
+  fetchLocations();
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-    
-    
 
     const convertCheckInRole = (role) =>{
-      console.debug(role);
       if(role==='on')
         return {
           name:"Restaurant"
@@ -44,14 +69,21 @@ export default function SignUp() {
         };
     }
 
+    const convertInLocation = (location) =>{
+      return{
+        city: location
+      };
+    }
+
     const formData = new FormData(event.currentTarget);
     const data = {
       email: formData.get('email'),
       password: formData.get('password'),
       name: formData.get('name'),
-      role: convertCheckInRole(formData.get('role'))
+      role: convertCheckInRole(formData.get('role')),
+      location: convertInLocation(formData.get('location'))
     };
-    
+    console.log(data);
     const requestOptions = {
       method: 'POST',
       headers: {
@@ -155,6 +187,17 @@ export default function SignUp() {
                   />
                 </Grid>
                 <Grid item xs={12}>
+                  <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="location"
+                      id="location"
+                      label="location"
+                    >
+                      {locationList.map((current_location) => <MenuItem  value={current_location.city}>{current_location.city}</MenuItem>)}
+                    </Select>
+                </Grid>
+                <Grid item xs={12}>
                 <Typography component="h1" variant="h5">
                     Restaurant?
                 </Typography>
@@ -166,6 +209,7 @@ export default function SignUp() {
                     label="Restaurant?"
                     name="role"
                   />
+                  
                 </Grid>
               </Grid>
               <Button

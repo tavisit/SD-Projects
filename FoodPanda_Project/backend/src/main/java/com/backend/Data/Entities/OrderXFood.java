@@ -1,9 +1,18 @@
 package com.backend.Data.Entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "order_x_foods")
+@Getter
+@Setter
+@RequiredArgsConstructor
+@AllArgsConstructor
 public class OrderXFood {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)

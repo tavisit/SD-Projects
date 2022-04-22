@@ -16,7 +16,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import config from '../config.json'
 import LocalStorageHelper from '../common/localStorageMethods'
 import './Login.css'
-import SimpleError from '../errors/SimpleError';
+import SimpleError from '../pop_messages/SimpleError';
 
 const theme = createTheme();
 const API_LOGIN = config.apiRoot + 'auth/login';

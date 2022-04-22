@@ -1,6 +1,4 @@
 
-import { useNavigate } from 'react-router-dom';
-
 import config from '../config.json'
 
 const API_GET_USER = config.apiRoot;
@@ -8,6 +6,7 @@ export default class LocalStorageHelper {
     static logout = () => {
         localStorage.removeItem('currentShop');
         localStorage.removeItem('user');
+        localStorage.removeItem('coordinatesEating');
     }
 
     static getUser = () => {
@@ -41,26 +40,10 @@ export default class LocalStorageHelper {
         return total;
     }
 
-    static clearUser = () => {
+    static clearCart = () => {
         var user = this.getUser();
-      const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        body: JSON.stringify(user)
-        };
-        fetch(API_GET_USER + "cart/delete" , requestOptions)
-            .then(response => response.json())
-            .then(response => {
-                if (response.httpStatusCode !== 200)
-                    throw new Error(response.message);
-                this.setUser(response.data);
-                console.log(this.getUser());
-            })
-            .catch(err => {
-            });
+        user.myCart = null;
+        this.setUser(user);
     };
 
     static checkoutUser = () => {

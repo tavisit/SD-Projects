@@ -13,7 +13,6 @@
 }
 
 .link:hover {
-    border: 1px solid white;
     border-radius: 10px;
     background-color: #1b63ac;
     padding: 10px;

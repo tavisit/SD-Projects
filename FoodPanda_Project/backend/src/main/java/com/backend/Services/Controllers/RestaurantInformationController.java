@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,12 +24,12 @@ public class RestaurantInformationController {
     @Autowired
     private BuyerFacade buyerFacade;
 
-    @GetMapping("/getAll")
-    public ResponseEntity<ApiResponse> getAll(){
+    @GetMapping("/getAll/{location}")
+    public ResponseEntity<ApiResponse> getAll(@PathVariable String location){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Responded", "BuyerController::getAll");
         try {
-            List<UserClass> restaurants = buyerFacade.getAllRestaurants();
+            List<UserClass> restaurants = buyerFacade.getAllRestaurants(location);
             MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
             return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved restaurants")
                     .withHttpHeader(httpHeaders)
@@ -41,12 +42,12 @@ public class RestaurantInformationController {
                     .build();
         }
     }
-    @GetMapping("/getByName/{restaurantName}")
-    public ResponseEntity<ApiResponse> getByName(@PathVariable String restaurantName){
+    @GetMapping("/getByName/{location}/{restaurantName}")
+    public ResponseEntity<ApiResponse> getByName(@PathVariable String restaurantName,@PathVariable String location){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Responded", "BuyerController::getByName");
         try {
-            List<UserClass> restaurants = buyerFacade.getByName(restaurantName);
+            List<UserClass> restaurants = buyerFacade.getByName(restaurantName,location);
             MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
             return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved restaurants")
                     .withHttpHeader(httpHeaders)
