@@ -26,6 +26,8 @@ public interface MapStructMapper {
 
     FoodcategoryDto foodCategoryDtoToFoodCategory(Foodcategory foodcategory);
 
+    List<FoodcategoryDto> listFoodCategoryToFoodCategoryDto(List<Foodcategory> foodcategoryList);
+
     FoodstatusDto foodStatusToFoodStatusDto(Foodstatus foodstatus);
 
     Foodstatus foodStatusDtoToStatus(FoodstatusDto foodstatusDto);

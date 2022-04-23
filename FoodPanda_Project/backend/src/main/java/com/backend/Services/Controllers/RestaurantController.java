@@ -1,10 +1,8 @@
 package com.backend.Services.Controllers;
 
-import com.backend.Data.DTOs.OrderDto;
-import com.backend.Data.DTOs.OrderWithDetailsDto;
-import com.backend.Data.DTOs.RestaurantfoodDto;
-import com.backend.Data.DTOs.UserDto;
+import com.backend.Data.DTOs.*;
 import com.backend.Services.Response.ApiResponse;
+import com.backend.Services.Response.ApiResponseBuilder;
 import com.backend.Services.Services.RestaurantUserFacade;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -16,70 +14,87 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/restaurant/{userId}")
+@RequestMapping("/restaurant")
 public class RestaurantController {
 
     @Autowired
     RestaurantUserFacade restaurantUserFacade;
 
     // view all the food
-    @GetMapping("/viewMenu")
+    @GetMapping("/viewMenu/{userId}")
     public ResponseEntity<ApiResponse> viewMenu(@PathVariable Integer userId){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Responded", "RestaurantController::viewMenu");
         try {
             UserDto restaurant = restaurantUserFacade.getRestaurantById(userId);
             List<RestaurantfoodDto> restaurantfoodDtoList = restaurantUserFacade.getMenu(restaurant);
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved menu")
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved menu")
                     .withHttpHeader(httpHeaders)
                     .withData(restaurantfoodDtoList)
                     .build();
 
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }
     }
     // view orders
-    @GetMapping("/viewOrders")
+    @GetMapping("/viewOrders/{userId}")
     public ResponseEntity<ApiResponse> viewOrdersWithDetails(@PathVariable Integer userId){
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Responded", "RestaurantController::viewOrders");
+        httpHeaders.add("Responded", "RestaurantController::viewOrdersWithDetails");
         try {
             UserDto restaurant = restaurantUserFacade.getRestaurantById(userId);
             List<OrderWithDetailsDto> restaurantfoodDtoList = restaurantUserFacade.getOrders(restaurant);
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved orders")
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved orders")
                     .withHttpHeader(httpHeaders)
                     .withData(restaurantfoodDtoList)
                     .build();
 
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+                    .withHttpHeader(httpHeaders)
+                    .build();
+        }
+    }
+    // view orders
+    @GetMapping("/getCategories")
+    public ResponseEntity<ApiResponse> getFoodCategories(){
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Responded", "RestaurantController::getFoodCategories");
+        try {
+            List<FoodcategoryDto> foodcategoryDtoList = restaurantUserFacade.getAllCategories();
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved orders")
+                    .withHttpHeader(httpHeaders)
+                    .withData(foodcategoryDtoList)
+                    .build();
+
+        } catch (Exception ex) {
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }
     }
     // filter orders
-    @GetMapping("/viewOrders/{orderState}")
-    public ResponseEntity<ApiResponse> viewOrdersByState(@PathVariable Integer userId,@PathVariable String orderState){
+    @GetMapping("/viewOrders/{userId}/{orderState}")
+    public ResponseEntity<ApiResponse> getOrdersByState(@PathVariable("userId") Integer userId,@PathVariable("orderState") String orderState){
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Responded", "RestaurantController::viewOrdersByState");
+        httpHeaders.add("Responded", "RestaurantController::getOrdersByState");
         try {
             UserDto restaurant = restaurantUserFacade.getRestaurantById(userId);
-            List<OrderWithDetailsDto> restaurantfoodDtoList = restaurantUserFacade.getOrders(restaurant);
-            List<OrderWithDetailsDto> restaurantFoodDtoListFiltered =
-                    restaurantfoodDtoList
+            List<OrderWithDetailsDto> restaurantfoodDtoList =
+                    restaurantUserFacade.getOrders(restaurant)
                             .stream()
                             .filter(restaurantFood->restaurantFood.order.getStatus().getName().equals(orderState))
-                            .collect(Collectors.toList());;
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved orders")
+                            .collect(Collectors.toList());
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved orders")
                     .withHttpHeader(httpHeaders)
-                    .withData(restaurantFoodDtoListFiltered)
+                    .withData(restaurantfoodDtoList)
                     .build();
 
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }
@@ -87,17 +102,17 @@ public class RestaurantController {
 
     // create new food
     @PostMapping("/createFood")
-    public ResponseEntity<ApiResponse> createNewFood(@PathVariable Integer userId, @RequestBody RestaurantfoodDto newFood){
+    public ResponseEntity<ApiResponse> createNewFood(@RequestBody RestaurantfoodDto newFood){
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Responded", "RestaurantController::createNewFood");
         try {
             restaurantUserFacade.createNewFood(newFood);
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully created food")
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully created food")
                     .withHttpHeader(httpHeaders)
                     .build();
 
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }
@@ -105,18 +120,18 @@ public class RestaurantController {
 
     // accept/decline order
     // change status of order
-    @PostMapping("/createFood/{newStatus}")
-    public ResponseEntity<ApiResponse> changeStatus(@PathVariable Integer userId, @PathVariable String orderState,@RequestBody OrderDto orderDto){
+    @PostMapping("/changeStatus/{newStatus}")
+    public ResponseEntity<ApiResponse> changeStatus(@PathVariable String newStatus,@RequestBody OrderDto orderDto){
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("Responded", "RestaurantController::createNewFood");
+        httpHeaders.add("Responded", "RestaurantController::changeStatus");
         try {
-            restaurantUserFacade.changeOrderStatus(orderState,orderDto);
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully updated status")
+            restaurantUserFacade.changeOrderStatus(newStatus,orderDto);
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully updated status")
                     .withHttpHeader(httpHeaders)
                     .build();
 
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }

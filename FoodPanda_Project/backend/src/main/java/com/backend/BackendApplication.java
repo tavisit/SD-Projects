@@ -6,10 +6,18 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
+
 @SpringBootApplication
 public class BackendApplication {
 
     public static void main(String[] args) {
+        String format = "yyyy_MM_dd_HH_mm_ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+        System.setProperty("timestamp",sdf.format(System.currentTimeMillis()));
         SpringApplication.run(BackendApplication.class, args);
     }
 

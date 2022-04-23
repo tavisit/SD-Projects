@@ -3,7 +3,7 @@ package com.backend.Services.Controllers;
 import com.backend.Data.DTOs.LocationDto;
 import com.backend.Data.DTOs.UserDto;
 import com.backend.Services.Response.ApiResponse;
-import com.backend.Services.Services.BuyerFacade;
+import com.backend.Services.Response.ApiResponseBuilder;
 import com.backend.Services.Services.LocationService;
 import com.backend.Services.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +18,6 @@ import java.util.List;
 @RequestMapping("/auth")
 public class AuthController {
     @Autowired
-    private BuyerFacade buyerFacade;
-    @Autowired
     private UserService userService;
     @Autowired
     private LocationService locationService;
@@ -30,14 +28,14 @@ public class AuthController {
         httpHeaders.add("Responded", "AuthController::createUser");
 
         try {
-            userDto = buyerFacade.createUser(userDto);
+            userDto = userService.createUser(userDto);
 
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully registered new user " + userDto.getEmail())
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully registered new user " + userDto.getEmail())
                     .withHttpHeader(httpHeaders)
                     .withData(userDto)
                     .build();
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }
@@ -51,13 +49,13 @@ public class AuthController {
         try {
             UserDto user = userService.findUser(userDTO.getEmail(), userDTO.getPassword());
 
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(),  "Successfully logged in user.")
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(),  "Successfully logged in user.")
                     .withHttpHeader(httpHeaders)
                     .withData(user)
                     .build();
 
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }
@@ -71,13 +69,13 @@ public class AuthController {
         try {
             List<LocationDto> locationDto = locationService.getAllLocations();
 
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(),  "Successfully logged in user.")
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(),  "Successfully logged in user.")
                     .withHttpHeader(httpHeaders)
                     .withData(locationDto)
                     .build();
 
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }

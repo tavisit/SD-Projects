@@ -2,6 +2,7 @@ package com.backend.Services.Controllers;
 
 import com.backend.Data.DTOs.*;
 import com.backend.Services.Response.ApiResponse;
+import com.backend.Services.Response.ApiResponseBuilder;
 import com.backend.Services.Services.BuyerFacade;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,13 @@ public class CartController {
         httpHeaders.add("Responded", "CartController::getCart");
         try {
             List<RestaurantfoodDto> userCart = buyerFacade.seeCart(userSite);
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved cart")
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved cart")
                     .withHttpHeader(httpHeaders)
                     .withData(userCart)
                     .build();
 
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }
@@ -42,13 +43,13 @@ public class CartController {
         try {
             UserDto userDto = userSite;
             userDto = buyerFacade.emptyCart(userDto);
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully emptied Cart")
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully emptied Cart")
                     .withHttpHeader(httpHeaders)
                     .withData(userDto)
                     .build();
 
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }
@@ -63,13 +64,13 @@ public class CartController {
             UserDto userDto = buyerFacade.addToCart(addCartDto.getUserDto(),addCartDto.getRestaurantfoodDto());
             // send email to restaurant when you order
 
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully added to cart")
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully added to cart")
                     .withHttpHeader(httpHeaders)
                     .withData(userDto)
                     .build();
 
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }
@@ -83,13 +84,13 @@ public class CartController {
             UserDto userDto = userSite;
             userDto = buyerFacade.createNewOrder(userDto,userDto.getMyCart(), new ObjectMapper().readValue(orderAdditional, OrderAdditionalDto.class));
 
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully placed order")
+            return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully placed order")
                     .withHttpHeader(httpHeaders)
                     .withData(userDto)
                     .build();
 
         } catch (Exception ex) {
-            return new ApiResponse.ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
+            return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
         }

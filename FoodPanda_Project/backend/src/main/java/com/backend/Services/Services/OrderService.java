@@ -16,12 +16,8 @@ public class OrderService {
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
-    FoodstatusRepository foodstatusRepository;
+    private FoodstatusRepository foodstatusRepository;
 
-    public OrderDto getOrderById(Integer id){
-        MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
-        return mapStructMapper.orderToOrderDto(orderRepository.getById(id));
-    }
     public List<OrderDto> getAllOrdersOfClient(UserDto client){
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
         return mapStructMapper.listOrderDtoToOrder(orderRepository.getAllByUser(mapStructMapper.userDtoToUser(client)));
@@ -47,13 +43,11 @@ public class OrderService {
     }
 
     public  OrderDto updateOrder(OrderDto orderDto){
-
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
         return mapStructMapper.orderToOrderDto(orderRepository.save(mapStructMapper.orderDtoToOrder(orderDto)));
     }
 
     public List<FoodstatusDto> getOrderStatuses(){
-
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
         return mapStructMapper.listFoodStatusToFoodStatusDto(foodstatusRepository.findAll());
     }

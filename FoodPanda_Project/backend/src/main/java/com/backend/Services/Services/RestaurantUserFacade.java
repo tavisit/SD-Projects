@@ -2,15 +2,11 @@ package com.backend.Services.Services;
 
 import com.backend.Common.mappers.MapStructMapperImpl;
 import com.backend.Data.DTOs.*;
-import com.backend.Data.Repositories.FoodstatusRepository;
-import com.backend.Data.Repositories.RoleRepository;
 import com.backend.Data.Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 @Service
 public class RestaurantUserFacade {
@@ -18,26 +14,22 @@ public class RestaurantUserFacade {
     @Autowired
     private UserService userService;
     @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
     private OrderXFoodService orderXFoodService;
     @Autowired
     private OrderService orderService;
     @Autowired
-    RestaurantFoodService restaurantFoodService;
-    @Autowired
-    FoodstatusRepository foodstatusRepository;
+    private RestaurantFoodService restaurantFoodService;
 
-    public UserDto getRestaurantById(Integer id) throws Exception{
-        MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
-        UserDto userDto = mapStructMapper.userToUserDto(userRepository.getById(id));
-        return userDto;
+    public UserDto getRestaurantById(Integer id){
+        return userService.getUserDtoById(id);
     }
 
-    public List<RestaurantfoodDto> getMenu(UserDto userDto) throws Exception{
+    public List<RestaurantfoodDto> getMenu(UserDto userDto){
         return restaurantFoodService.getFoodsByResturant(userDto);
+    }
+
+    public List<FoodcategoryDto> getAllCategories() throws Exception{
+        return restaurantFoodService.getFoodsCategories();
     }
 
     public List<OrderWithDetailsDto> getOrders(UserDto userDto){
@@ -45,15 +37,14 @@ public class RestaurantUserFacade {
         return orderXFoodService.getOrdersWithDetailsFromOrderList(orders);
     }
 
-    public void createNewFood(RestaurantfoodDto restaurantfoodDto) throws Exception{
+    public void createNewFood(RestaurantfoodDto restaurantfoodDto){
         restaurantFoodService.createNewFood(restaurantfoodDto);
     }
 
-    public void changeOrderStatus(String newOrderStatus,OrderDto orderDto){
-        MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
-        FoodstatusDto foodstatusDto = mapStructMapper.foodStatusToFoodStatusDto(foodstatusRepository.getFoodstatusByName(newOrderStatus));
+    public OrderDto changeOrderStatus(String newOrderStatus,OrderDto orderDto){
+        FoodstatusDto foodstatusDto = restaurantFoodService.getFoodstatusByName(newOrderStatus);
         orderDto.setStatus(foodstatusDto);
-        orderService.updateOrder(orderDto);
+        return orderService.updateOrder(orderDto);
     }
 
 

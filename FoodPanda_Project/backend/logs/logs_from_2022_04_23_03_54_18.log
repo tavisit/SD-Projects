@@ -1,0 +1,24 @@
+2022-04-23 03:54:18.632  INFO 11676 --- [main] com.backend.BackendApplication           : Starting BackendApplication using Java 17.0.2 on DESKTOP-SCLQTE9 with PID 11676 (D:\__UTCN\Anul_III_Sem_II\SD\FoodPanda_Project\Backend\target\classes started by matei in D:\__UTCN\Anul_III_Sem_II\SD\FoodPanda_Project\Backend)
+2022-04-23 03:54:18.636  INFO 11676 --- [main] com.backend.BackendApplication           : No active profile set, falling back to 1 default profile: "default"
+2022-04-23 03:54:19.178  INFO 11676 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-04-23 03:54:19.232  INFO 11676 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 48 ms. Found 8 JPA repository interfaces.
+2022-04-23 03:54:19.608  INFO 11676 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2022-04-23 03:54:19.615  INFO 11676 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-04-23 03:54:19.615  INFO 11676 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.60]
+2022-04-23 03:54:19.691  INFO 11676 --- [main] o.a.c.c.C.[.[.[/api/foodpanda]           : Initializing Spring embedded WebApplicationContext
+2022-04-23 03:54:19.691  INFO 11676 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1010 ms
+2022-04-23 03:54:19.819  INFO 11676 --- [main] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-04-23 03:54:19.850  INFO 11676 --- [main] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.6.7.Final
+2022-04-23 03:54:19.922  INFO 11676 --- [main] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-04-23 03:54:19.977  INFO 11676 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2022-04-23 03:54:20.059  INFO 11676 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2022-04-23 03:54:20.070  INFO 11676 --- [main] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL8Dialect
+2022-04-23 03:54:20.511  INFO 11676 --- [main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-04-23 03:54:20.516  INFO 11676 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-04-23 03:54:20.852  WARN 11676 --- [main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-04-23 03:54:21.082  INFO 11676 --- [main] o.s.s.web.DefaultSecurityFilterChain     : Will not secure any request
+2022-04-23 03:54:21.353  INFO 11676 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path '/api/foodpanda'
+2022-04-23 03:54:21.361  INFO 11676 --- [main] com.backend.BackendApplication           : Started BackendApplication in 3.017 seconds (JVM running for 3.524)
+2022-04-23 03:54:52.399  INFO 11676 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-04-23 03:54:52.401  INFO 11676 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2022-04-23 03:54:52.404  INFO 11676 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
