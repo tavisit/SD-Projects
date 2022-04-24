@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import NavBar from '../navbar/NavBar'
+import NavBar from '../TopBottomComponents/NavBar'
 import config from '../config.json'
 import { useNavigate } from 'react-router-dom'
 import LocalStorageHelper from '../common/localStorageMethods'

@@ -4,7 +4,7 @@ import Divider from '@mui/material/Divider'
 import { useNavigate } from 'react-router-dom'
 
 import Card from '@mui/material/Card'
-import NavBar from '../../navbar/NavBar'
+import NavBar from '../../TopBottomComponents/NavBar'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import '../info_restaurant/RestaurantInfo'

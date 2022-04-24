@@ -3,7 +3,7 @@ import * as React from 'react'
 import Divider from '@mui/material/Divider'
 import { useNavigate } from 'react-router-dom'
 
-import NavBar from '../../navbar/NavBar'
+import NavBar from '../../TopBottomComponents/NavBar'
 import config from '../../config.json'
 import LocalStorageHelper from '../../common/localStorageMethods'
 import OrderItem from './OrderItem'
@@ -94,6 +94,17 @@ function OrderMenu () {
       })
       .catch(err => {})
   }
+
+  function compare (a, b) {
+    if (a.order.status.id < b.order.status.id) {
+      return -1
+    }
+    if (a.order.status.id > b.order.status.id) {
+      return 1
+    }
+    return 0
+  }
+
   return (
     <div>
       <NavBar typeUser='buyer' />
@@ -120,7 +131,7 @@ function OrderMenu () {
         <Divider />
         {orders.length ? (
           <div className='flex-row'>
-            {orders.map(order => (
+            {orders.sort(compare).map(order => (
               <OrderItem
                 key={order.order.id}
                 id={order.order.id}

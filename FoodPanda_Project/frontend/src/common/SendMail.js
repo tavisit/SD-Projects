@@ -21,7 +21,7 @@ class SendEmail {
       clientInfo,
       api_key.PUBLIC_KEY
     ).then(
-      result => {},
+      () => {},
       error => {
         alert('An error occurred, Please try again', error.text)
       }
@@ -45,7 +45,7 @@ class SendEmail {
       restaurantInfo,
       api_key.PUBLIC_KEY
     ).then(
-      result => {},
+      () => {},
       error => {
         alert('An error occurred, Please try again', error.text)
       }

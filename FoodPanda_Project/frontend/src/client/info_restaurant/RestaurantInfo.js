@@ -3,7 +3,7 @@ import * as React from 'react'
 import Divider from '@mui/material/Divider'
 import { useNavigate } from 'react-router-dom'
 
-import NavBar from '../../navbar/NavBar'
+import NavBar from '../../TopBottomComponents/NavBar'
 import './RestaurantInfo.css'
 import config from '../../config.json'
 import SimpleError from '../../pop_messages/SimpleError'

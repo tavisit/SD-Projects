@@ -8,10 +8,6 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 
 function OrderMessage (props) {
-  const printOrder = () => {
-    console.log(props)
-  }
-
   let dialog = (
     <Dialog
       open={props.open}
@@ -49,7 +45,6 @@ function OrderMessage (props) {
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={printOrder}> Print Order </Button>
         <Button onClick={props.handleClose} autoFocus>
           {' '}
           Close{' '}
