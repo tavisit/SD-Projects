@@ -13,13 +13,25 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ * Controller that controls the data flow for the buyer component
+ */
 @RestController
 @RequestMapping("/buyer")
 public class BuyerController {
+
+    /**
+     * Buyer Facade that interacts with the controller,
+     * @see com.backend.Services.Services.BuyerFacade  for more information
+     */
     @Autowired
     private BuyerFacade buyerFacade;
 
+    /**
+     * Get all the orders from a user
+     * @param userDto the user that is querried
+     * @return the response entity corresponding to the success/fail of the request
+     */
     @PostMapping("/getOrders")
     public ResponseEntity<ApiResponse> getAllOrders(@RequestBody UserDto userDto){
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -38,6 +50,12 @@ public class BuyerController {
         }
     }
 
+    /**
+     * Get all the orders with a certain status from user
+     * @param userDto the user the is querried
+     * @param status the status that is searched
+     * @return the response entity corresponding to the success/fail of the request
+     */
     @PostMapping("/getOrders/{status}")
     public ResponseEntity<ApiResponse> getOrdersWithStatus(@RequestBody UserDto userDto,@PathVariable String status){
         HttpHeaders httpHeaders = new HttpHeaders();

@@ -11,4 +11,9 @@ import java.io.Serializable;
 public class FoodstatusDto implements Serializable {
     private Integer id;
     private String name;
+
+    @Override
+    public String toString() {
+        return "Status: " + name;
+    }
 }

@@ -1,0 +1,11 @@
+com.backend
+com.backend.Common.exceptions
+com.backend.Common.mappers
+com.backend.Data.DTOs
+com.backend.Data.Entities
+com.backend.Data.Repositories
+com.backend.Services.Controllers
+com.backend.Services.Response
+com.backend.Services.Security
+com.backend.Services.Services
+com.backend.Services.Validators

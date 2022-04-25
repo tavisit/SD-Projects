@@ -141,7 +141,7 @@ function RestaurantOrders () {
                 user_email={order.order.user.email}
                 user_location_longitude={order.order.longitude}
                 user_location_latitude={order.order.latitude}
-                status={order.order.status.name}
+                status={order.order.status}
                 statusList={orderStatusList}
                 foodList={order.foodDtoList}
                 price={order.price}

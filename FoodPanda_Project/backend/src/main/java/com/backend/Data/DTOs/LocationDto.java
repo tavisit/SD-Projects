@@ -11,4 +11,6 @@ public class LocationDto implements Serializable {
     private final String city;
     private final Float longitude;
     private final Float latitude;
+
+
 }

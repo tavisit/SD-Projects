@@ -11,11 +11,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Order x Food signifies the relation between the food and the order that it is bound to
+ * This was chosen in order to have a list of foods bound to orders in the database and in the program logic
+ */
 @Service
 public class OrderXFoodService {
+    /**
+     * OrderXFood repository used by the service
+     */
     @Autowired
     private OrderXFoodRepository orderXFoodRepository;
 
+    /**
+     * Get all food that is bound to a certain order
+     * @param orderDto the order that is requested
+     * @return a list of food that belongs to the order
+     */
     public List<RestaurantfoodDto> getAllByOrder(OrderDto orderDto) {
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
 
@@ -30,16 +42,30 @@ public class OrderXFoodService {
         return foodInOrder;
     }
 
+    /**
+     * Get the food from the user's cart
+     * @param user the user that has the cart
+     * @return a list of food menus
+     */
     public List<RestaurantfoodDto> seeCart(UserDto user){
         return user.getMyCart();
     }
 
+    /**
+     * Add a list of foods with bound order to the database
+     * @param orderXFoodDtos a list of food and order that needs to be added
+     */
     public void addElement(List<OrderXFoodDto> orderXFoodDtos){
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
         List<OrderXFood> orderXFoodsList = mapStructMapper.listOrderXFoodDtoToOrderXFood(orderXFoodDtos);
         orderXFoodRepository.saveAll(orderXFoodsList);
     }
 
+    /**
+     * Get all the information regarding a list of orders
+     * @param orders a list of orders that need to be querried
+     * @return a list that contains all the information regarding an order (food, user, restaurant)
+     */
     public List<OrderWithDetailsDto> getOrdersWithDetailsFromOrderList(List<OrderDto> orders){
         List<OrderWithDetailsDto> actualOrders = new ArrayList<>();
         orders.forEach(orderDto -> {

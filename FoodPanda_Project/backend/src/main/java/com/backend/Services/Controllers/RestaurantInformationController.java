@@ -15,13 +15,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
+/**
+ * Controller that controls the data flow for the restaurant information component
+ */
 @RestController
 @RequestMapping("/restaurantInfo")
 public class RestaurantInformationController {
+    /**
+     * Buyer Facade that interacts with the controller,
+     * @see com.backend.Services.Services.BuyerFacade  for more information
+     */
     @Autowired
     private BuyerFacade buyerFacade;
 
+    /**
+     * Get all restaurants that are located in a certain area
+     * @param location the location of the restaurant
+     * @return the response entity corresponding to the success/fail of the request
+     */
     @GetMapping("/getAll/{location}")
     public ResponseEntity<ApiResponse> getAll(@PathVariable String location){
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -39,6 +50,13 @@ public class RestaurantInformationController {
                     .build();
         }
     }
+
+    /**
+     * Get a list of restaurants by looking at the partial name of the restaurant and the location
+     * @param restaurantName the partial name of the restaurant
+     * @param location the location of the restaurant
+     * @return the response entity corresponding to the success/fail of the request
+     */
     @GetMapping("/getByName/{location}/{restaurantName}")
     public ResponseEntity<ApiResponse> getByName(@PathVariable("restaurantName") String restaurantName,@PathVariable("location") String location){
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -57,6 +75,11 @@ public class RestaurantInformationController {
         }
     }
 
+    /**
+     * Get the restarurant's menu by the restaurant ID
+     * @param restaurantID the id of the restaurant
+     * @return the response entity corresponding to the success/fail of the request
+     */
     @GetMapping("/getById/{restaurantID}")
     public ResponseEntity<ApiResponse> getRestaurantMenu(@PathVariable Integer restaurantID){
         HttpHeaders httpHeaders = new HttpHeaders();

@@ -51,10 +51,7 @@ export default function NewFoodItem (props) {
       body: JSON.stringify(data)
     }
 
-    fetch(
-      API_GET_USER + 'restaurant/createFood/' + LocalStorageHelper.getUser().id,
-      requestOptions
-    )
+    fetch(API_GET_USER + 'restaurant/createFood', requestOptions)
       .then(response => response.json())
       .then(response => {
         if (response.httpStatusCode !== 200) throw new Error(response.message)

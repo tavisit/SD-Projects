@@ -7,14 +7,17 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 import DialogTitle from '@mui/material/DialogTitle'
 import OrderStatus from '../admin_restaurant/RestaurantOrder/OrderStatus'
+import SimpleError from './SimpleError'
+import config from '../config.json'
+import ByteToDocument from '../common/ByteToDocument'
+const API_GET_USER = config.apiRoot
 
 function OrderMessageRestaurant (props) {
   const [isPossibleAdvance, setAdvance] = React.useState(false)
   const [isPending, setPendingState] = React.useState(false)
+  const [open, setOpen] = React.useState([])
 
   React.useEffect(() => {
-    console.log(props.statusList)
-    console.log(props.status)
     if (props.statusList[0] == null) return
     if (props.status == props.statusList[1].name) {
       // Pending
@@ -36,7 +39,41 @@ function OrderMessageRestaurant (props) {
   }, [props.statusList, props.status])
 
   const printOrder = () => {
-    console.log(props)
+    var today = new Date()
+    var date =
+      today.getFullYear() + '_' + (today.getMonth() + 1) + '_' + today.getDate()
+    var time =
+      today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds()
+    var dateTime = date + '_' + time
+    const requestOptions = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json'
+      },
+      body: JSON.stringify(props.order.id)
+    }
+
+    fetch(
+      API_GET_USER + 'restaurant/getpdf/' + props.order.restaurant.id,
+      requestOptions
+    )
+      .then(response => response.json())
+      .then(response => {
+        if (response.httpStatusCode !== 200) throw new Error(response.message)
+        var sampleArr = ByteToDocument.base64ToArrayBuffer(response.data)
+        ByteToDocument.saveByteArray(
+          'Report_on_orderid_' +
+            props.order.id +
+            '_on_date_' +
+            dateTime +
+            '.pdf',
+          sampleArr
+        )
+      })
+      .catch(err => {
+        setOpen(true)
+      })
   }
 
   const declineOrder = () => {
@@ -59,55 +96,65 @@ function OrderMessageRestaurant (props) {
   }
 
   let dialog = (
-    <Dialog
-      open={props.open}
-      onClose={props.handleClose}
-      aria-labelledby='alert-dialog-title'
-      aria-describedby='alert-dialog-description'
-      PaperProps={{
-        sx: {
-          minWidth: '30%',
-          minheight: 300,
-          width: 'auto',
-          maxHeight: 'auto'
-        }
-      }}
-    >
-      <DialogTitle id='alert-dialog-title'>{props.title}</DialogTitle>
-      <DialogContent>
-        {props.messageList ? (
-          <>
-            {props.messageList.map(messages => (
-              <DialogContentText
-                key={messages.message}
-                id='alert-dialog-description'
-              >
-                {messages.message}
+    <>
+      <SimpleError
+        id='post-food-info-error'
+        open={open}
+        title={'The food was not added!'}
+        handleClose={() => {
+          setOpen(false)
+        }}
+      />
+      <Dialog
+        open={props.open}
+        onClose={props.handleClose}
+        aria-labelledby='alert-dialog-title'
+        aria-describedby='alert-dialog-description'
+        PaperProps={{
+          sx: {
+            minWidth: '30%',
+            minheight: 300,
+            width: 'auto',
+            maxHeight: 'auto'
+          }
+        }}
+      >
+        <DialogTitle id='alert-dialog-title'>{props.title}</DialogTitle>
+        <DialogContent>
+          {props.messageList ? (
+            <>
+              {props.messageList.map(messages => (
+                <DialogContentText
+                  key={messages.message}
+                  id='alert-dialog-description'
+                >
+                  {messages.message}
+                </DialogContentText>
+              ))}
+            </>
+          ) : (
+            <>
+              <DialogContentText id='alert-dialog-description'>
+                Nothing found!
               </DialogContentText>
-            ))}
-          </>
-        ) : (
-          <>
-            <DialogContentText id='alert-dialog-description'>
-              Nothing found!
-            </DialogContentText>
-          </>
-        )}
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={declineOrder} disabled={!isPending}>
-          Reject Order
-        </Button>
-        <Button onClick={advanceOrder} disabled={!isPossibleAdvance}>
-          Advance Order
-        </Button>
-        <Button onClick={printOrder}> Print Order </Button>
-        <Button onClick={props.handleClose} autoFocus>
-          {' '}
-          Close{' '}
-        </Button>
-      </DialogActions>
-    </Dialog>
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={declineOrder} disabled={!isPending}>
+            Reject Order
+          </Button>
+          <Button onClick={advanceOrder} disabled={!isPossibleAdvance}>
+            Advance Order
+          </Button>
+          <Button onClick={printOrder}> Print Order </Button>
+          <Button onClick={props.handleClose} autoFocus>
+            {' '}
+            Close{' '}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   )
 
   if (!props.open) dialog = null

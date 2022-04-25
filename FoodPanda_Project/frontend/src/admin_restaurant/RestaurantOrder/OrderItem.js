@@ -8,6 +8,7 @@ import CardContent from '@mui/material/CardContent'
 import OrderMessageRestaurant from '../../pop_messages/OrderMessageRestaurant'
 import LocalStorageHelper from '../../common/localStorageMethods'
 import { CardActionArea, CardMedia } from '@mui/material'
+import GetPhotoByStatus from '../../resources/GetPhotoByStatus'
 
 function RestaurantOrders (item) {
   let navigate = useNavigate()
@@ -47,9 +48,9 @@ function RestaurantOrders (item) {
       <OrderMessageRestaurant
         id='get-order-info'
         open={open}
-        title={item.status}
+        title={item.status.name}
         order={item.printingInfo}
-        status={item.status}
+        status={item.status.name}
         statusList={item.statusList}
         messageList={handleText()}
         handleClose={() => {
@@ -61,7 +62,7 @@ function RestaurantOrders (item) {
           <CardMedia
             component='img'
             height='140'
-            image='https://res.cloudinary.com/glovoapp/image/fetch//f_auto,q_auto/https://glovoapp.com/images/landing/address-container-image-burger.png'
+            image={GetPhotoByStatus(item.status)}
           />
           <CardContent>
             <Typography gutterBottom variant='h5' component='div'>
@@ -77,7 +78,7 @@ function RestaurantOrders (item) {
               </Typography>
             </Typography>
             <Typography gutterBottom variant='h5' component='div'>
-              Status: {item.status}
+              Status: {item.status.name}
             </Typography>
             <Typography gutterBottom variant='h5' component='div'>
               Price: {item.price}

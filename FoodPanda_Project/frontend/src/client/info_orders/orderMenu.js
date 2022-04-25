@@ -136,7 +136,7 @@ function OrderMenu () {
                 key={order.order.id}
                 id={order.order.id}
                 restaurant={order.order.restaurant.name}
-                status={order.order.status.name}
+                status={order.order.status}
                 foodList={order.foodDtoList}
                 price={order.price}
                 printingInfo={order.order}

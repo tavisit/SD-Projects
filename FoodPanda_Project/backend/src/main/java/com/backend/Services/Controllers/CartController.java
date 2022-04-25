@@ -13,12 +13,24 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller that controls the data flow for the cart part
+ */
 @RestController
 @RequestMapping("/cart")
 public class CartController {
+    /**
+     * Buyer Facade that interacts with the controller,
+     * @see com.backend.Services.Services.BuyerFacade  for more information
+     */
     @Autowired
     private BuyerFacade buyerFacade;
 
+    /**
+     * Get the cart from a certain user
+     * @param userSite the user that has the required cart
+     * @return the response entity corresponding to the success/fail of the request
+     */
     @PostMapping("/getCart")
     public ResponseEntity<ApiResponse> getCart(@RequestBody UserDto userSite){
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -36,6 +48,12 @@ public class CartController {
                     .build();
         }
     }
+
+    /**
+     * Delete the cart from a certain user
+     * @param userSite the user that needs to be updated
+     * @return the response entity corresponding to the success/fail of the request
+     */
     @PostMapping("/delete")
     public ResponseEntity<ApiResponse> deleteCart(@RequestBody UserDto userSite){
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -55,6 +73,11 @@ public class CartController {
         }
     }
 
+    /**
+     * Add to the cart of a user a certain food menu
+     * @param addCartDto the complex object that represents the user and the new food
+     * @return the response entity corresponding to the success/fail of the request
+     */
     @PostMapping("/addToCart")
     public ResponseEntity<ApiResponse> addToCart(@RequestBody AddCartDto addCartDto){
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -62,8 +85,6 @@ public class CartController {
 
         try {
             UserDto userDto = buyerFacade.addToCart(addCartDto.getUserDto(),addCartDto.getRestaurantfoodDto());
-            // send email to restaurant when you order
-
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully added to cart")
                     .withHttpHeader(httpHeaders)
                     .withData(userDto)
@@ -76,6 +97,12 @@ public class CartController {
         }
     }
 
+    /**
+     * Submit an order from a user with additional information received in path
+     * @param userSite the user that placed the order
+     * @param orderAdditional the additional information submitted by the user
+     * @return the response entity corresponding to the success/fail of the request
+     */
     @PostMapping("/submitOrder/{orderAdditional}")
     public ResponseEntity<ApiResponse> submitOrder(@RequestBody UserDto userSite,@PathVariable String orderAdditional){
         HttpHeaders httpHeaders = new HttpHeaders();

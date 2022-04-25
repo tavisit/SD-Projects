@@ -11,4 +11,17 @@ import java.io.Serializable;
 public class RoleDto implements Serializable {
     private Integer id;
     private String name;
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public boolean isClient(){
+        return id==1;
+    }
+
+    public boolean isRestaurant(){
+        return id==2;
+    }
 }

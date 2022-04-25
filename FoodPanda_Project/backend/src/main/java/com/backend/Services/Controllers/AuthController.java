@@ -14,14 +14,31 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller that controls the data flow for the login/register part
+ * Authentification controller for login/register requests
+ */
 @RestController
 @RequestMapping("/auth")
 public class AuthController {
+    /**
+     * Reference autowired to the user Service implemented in the same package
+     * @see UserService
+     */
     @Autowired
     private UserService userService;
+    /**
+     * Reference autowired to the location Service implemented in the same package
+     * @see LocationService
+     */
     @Autowired
     private LocationService locationService;
 
+    /**
+     * Register related post mapping method
+     * @param userDto new user to be introduced into the database
+     * @return the response entity corresponding to the success/fail of the request
+     */
     @PostMapping("/register")
     public ResponseEntity<ApiResponse> createUser(@RequestBody UserDto userDto) {
         HttpHeaders httpHeaders = new HttpHeaders();
@@ -41,6 +58,11 @@ public class AuthController {
         }
     }
 
+    /**
+     * Login related post mapping method
+     * @param userDTO the user that needs to be logged
+     * @return the response entity corresponding to the success/fail of the request
+     */
     @PostMapping("/login")
     public ResponseEntity<ApiResponse> loginUser(@RequestBody UserDto userDTO) {
         HttpHeaders httpHeaders = new HttpHeaders();

@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import { CardActionArea } from '@mui/material'
+import GetPhotoByCategory from '../../resources/GetPhotoByCategory'
 
 function RestaurantFoodItem (item) {
   return (
@@ -15,7 +16,7 @@ function RestaurantFoodItem (item) {
           <CardMedia
             component='img'
             height='140'
-            image='https://images.immediate.co.uk/production/volatile/sites/30/2014/05/Epic-summer-salad-hub-2646e6e.jpg'
+            image={GetPhotoByCategory(item.category)}
           />
           <CardContent>
             <Typography gutterBottom variant='h3' component='div'>
