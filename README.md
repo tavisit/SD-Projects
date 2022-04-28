@@ -70,19 +70,19 @@ Restaurant Administrator and Customer.
 
 #### Use-Case Diagram
 
-![Use Case Diagram](https://www.deskdecode.com/wp-content/uploads/2019/06/Random_vs_sequential_access-1.png)
+![Use Case Diagram](https://github.com/tavisit/SD-Projects/blob/FoodPanda_Project/FoodPanda_Project/images/usecase.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 ## E-R Diagram
 
-![E-R Diagram](https://www.deskdecode.com/wp-content/uploads/2019/06/Random_vs_sequential_access-1.png)
+![E-R Diagram](https://github.com/tavisit/SD-Projects/blob/FoodPanda_Project/FoodPanda_Project/images/er.png?raw=true)
 
 <div style="page-break-after: always;"></div>
 
 ## Class Diagram
 
-![Package Diagram](https://www.deskdecode.com/wp-content/uploads/2019/06/Random_vs_sequential_access-1.png)
+![Package Diagram](https://github.com/tavisit/SD-Projects/blob/FoodPanda_Project/FoodPanda_Project/images/package.png?raw=true)
 
-![Class Diagram](https://www.deskdecode.com/wp-content/uploads/2019/06/Random_vs_sequential_access-1.png)
+![Class Diagram](https://github.com/tavisit/SD-Projects/blob/FoodPanda_Project/FoodPanda_Project/images/class.png?raw=true)
 
