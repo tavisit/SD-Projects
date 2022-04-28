@@ -20,14 +20,14 @@
 
 ## Project specification
 
-Implement a delivery service that can incorporate 2 roles: **buyer** and **administrator**.
+Implement a delivery service that can incorporate 2 roles: **buyer** and **restaurant administrator**.
 The customer should be able to order food and see the available options, while the administrator
 should be able to create new instances of foods and restaurants.
 
 ## Use Case model
 
 There are two types of users which can access and use the application such as :
-Restaurant Administrator and Customer.
+**restaurant administrator** and **buyer**.
 
 #### The Restaurant Administrator should be able to:
 
