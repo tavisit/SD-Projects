@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -83,11 +84,14 @@ public class AuthController {
         }
     }
 
+    /**
+     * Get all the locations for the register portion
+     * @return a list of all locations available
+     */
     @GetMapping("/register/location")
     public ResponseEntity<ApiResponse> getLocations() {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("Responded", "AuthController::loginUser");
-
         try {
             List<LocationDto> locationDto = locationService.getAllLocations();
 

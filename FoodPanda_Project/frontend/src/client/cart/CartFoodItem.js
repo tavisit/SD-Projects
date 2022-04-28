@@ -8,6 +8,7 @@ import CardMedia from '@mui/material/CardMedia'
 import { CardActions, Button } from '@mui/material'
 import LocalStorageHelper from '../../common/localStorageMethods'
 import config from '../../config.json'
+import GetPhotoByCategory from '../../resources/GetPhotoByCategory'
 
 const API_GET_USER = config.apiRoot
 function CartFoodItem (item) {
@@ -45,7 +46,7 @@ function CartFoodItem (item) {
       <CardMedia
         component='img'
         height='140'
-        image='https://images.immediate.co.uk/production/volatile/sites/30/2014/05/Epic-summer-salad-hub-2646e6e.jpg'
+        image={GetPhotoByCategory(item.category)}
       />
       <CardContent>
         <Typography gutterBottom variant='h5' component='div'>

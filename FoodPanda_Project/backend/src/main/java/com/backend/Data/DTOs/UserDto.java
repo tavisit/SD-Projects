@@ -18,6 +18,7 @@ public class UserDto implements Serializable {
     private RoleDto role;
     private LocationDto location;
     private List<RestaurantfoodDto> myCart;
+    private String token;
 
     @Override
     public String toString() {

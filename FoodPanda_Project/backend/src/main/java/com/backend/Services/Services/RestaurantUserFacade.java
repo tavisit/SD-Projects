@@ -57,7 +57,7 @@ public class RestaurantUserFacade {
      * @throws Exception if the user is not a restaurant
      */
     public List<RestaurantfoodDto> getMenu(UserDto userDto) throws Exception {
-        if(userDto.getRole().isRestaurant()) throw new Exception("User is not a restaurant!");
+        if(userDto.getRole().isClient()) throw new Exception("User is not a restaurant!");
         return restaurantFoodService.getFoodsByResturant(userDto);
     }
 

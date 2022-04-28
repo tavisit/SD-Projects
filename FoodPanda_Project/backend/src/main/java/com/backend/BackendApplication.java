@@ -15,10 +15,16 @@ import java.util.TimeZone;
 public class BackendApplication {
 
     public static void main(String[] args) {
-        String format = "yyyy_MM_dd_HH_mm_ss";
+        String format = "dd_HH_mm_ss";
+        SimpleDateFormat yearFormat = new SimpleDateFormat("yyyy");
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MM");
+
         SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
         System.setProperty("timestamp",sdf.format(System.currentTimeMillis()));
+        System.setProperty("year",yearFormat.format(System.currentTimeMillis()));
+        System.setProperty("month",monthFormat.format(System.currentTimeMillis()));
         SpringApplication.run(BackendApplication.class, args);
+        Thread.dumpStack();
     }
 
     @Bean
