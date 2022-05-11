@@ -42,6 +42,13 @@ public class BuyerFacade {
     @Autowired
     private RestaurantFoodService restaurantFoodService;
 
+    public BuyerFacade(UserService userService, OrderXFoodService orderXFoodService, OrderService orderService, RestaurantFoodService restaurantFoodService) {
+        this.userService = userService;
+        this.orderXFoodService = orderXFoodService;
+        this.orderService = orderService;
+        this.restaurantFoodService = restaurantFoodService;
+    }
+
     /**
      * Get all restaurants based on a location
      * @param location string that represents the location of the restaurants
@@ -171,7 +178,7 @@ public class BuyerFacade {
      */
     public UserDto getRestaurantById(Integer id) throws Exception{
         UserDto userDto =userService.getUserDtoById(id);
-        if(userDto.getRole().isClient()) throw  new Exception("Not a restaurant!");
+        if(userDto.getRole().isClient()) throw new Exception("Not a restaurant!");
         return userDto;
     }
 
@@ -182,7 +189,7 @@ public class BuyerFacade {
      * @throws Exception thrown if something goes wrong, such as wrong user type
      */
     public List<RestaurantfoodDto> getMenu(UserDto userDto) throws Exception{
-        if(userDto.getRole().isClient()) throw  new Exception("Not a restaurant!");
+        if(userDto.getRole().isClient()) throw new Exception("Not a restaurant!");
         return restaurantFoodService.getFoodsByResturant(userDto);
     }
 }

@@ -1,6 +1,5 @@
 package com.backend.Data.DTOs;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +23,6 @@ public class RoleDto implements Serializable {
     public boolean isRestaurant(){
         return id==2;
     }
+
+
 }

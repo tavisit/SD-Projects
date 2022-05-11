@@ -5,7 +5,7 @@ import com.backend.Data.DTOs.FoodstatusDto;
 import com.backend.Services.Response.ApiResponse;
 import com.backend.Services.Response.ApiResponseBuilder;
 import com.backend.Services.Services.OrderService;
-import com.backend.Services.Services.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +21,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
+    /**
+     * Logger for the class
+     */
+    private static final Logger logger = Logger.getLogger(OrderController.class);
     /**
      * Reference autowired to the order Service implemented in the same package
      * @see OrderService
@@ -38,12 +42,15 @@ public class OrderController {
         httpHeaders.add("Responded", "OrderController::viewOrdersByState");
         try {
             List<FoodstatusDto> orderStatusDtoList = orderService.getOrderStatuses();
+            logger.info("Retrieved the list of food status:");
+            orderStatusDtoList.forEach(logger::info);
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved status list")
                     .withHttpHeader(httpHeaders)
                     .withData(orderStatusDtoList)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from OrderController::viewOrdersByState with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();

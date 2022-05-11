@@ -1,16 +1,24 @@
 package com.backend.Data.DTOs;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 
-@Data
+@Setter
+@Getter
 public class LocationDto implements Serializable {
-    private final Integer id;
-    private final String city;
-    private final Float longitude;
-    private final Float latitude;
+    private Integer id;
+    private String city;
+    private Float longitude;
+    private Float latitude;
 
-
+    @Override
+    public String toString() {
+        return "LocationDto{" +
+                "city='" + city + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                '}';
+    }
 }

@@ -5,6 +5,7 @@ import com.backend.Data.DTOs.FoodcategoryDto;
 import com.backend.Data.DTOs.FoodstatusDto;
 import com.backend.Data.DTOs.RestaurantfoodDto;
 import com.backend.Data.DTOs.UserDto;
+import com.backend.Data.Entities.Restaurantfood;
 import com.backend.Data.Repositories.FoodcategoryRepository;
 import com.backend.Data.Repositories.FoodstatusRepository;
 import com.backend.Data.Repositories.RestaurantfoodRepository;
@@ -33,6 +34,12 @@ public class RestaurantFoodService {
      */
     @Autowired
     private FoodstatusRepository foodstatusRepository;
+
+    public RestaurantFoodService(RestaurantfoodRepository restaurantfoodRepository, FoodcategoryRepository foodcategoryRepository, FoodstatusRepository foodstatusRepository) {
+        this.restaurantfoodRepository = restaurantfoodRepository;
+        this.foodcategoryRepository = foodcategoryRepository;
+        this.foodstatusRepository = foodstatusRepository;
+    }
 
     /**
      * Get all the food from a certain restaurant
@@ -72,9 +79,10 @@ public class RestaurantFoodService {
      * Insert new food into the database
      * @param restaurantfoodDto the food that needs to be added to the database
      */
-    public void createNewFood(RestaurantfoodDto restaurantfoodDto) {
+    public RestaurantfoodDto createNewFood(RestaurantfoodDto restaurantfoodDto) {
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
-        restaurantfoodRepository.save(mapStructMapper.restaurantFoodDtoToRestaurantFood(restaurantfoodDto));
+        Restaurantfood newFood = restaurantfoodRepository.save(mapStructMapper.restaurantFoodDtoToRestaurantFood(restaurantfoodDto));
+        return mapStructMapper.restaurantFoodToRestaurantFoodDto(newFood);
     }
 
 }

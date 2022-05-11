@@ -1,0 +1,90 @@
+2022-05-12 01:37:30 INFO  AuthController:77 - Called AuthController::loginUser
+  2022-05-12 01:37:31 INFO  AuthController:83 - User logs into application with credentials: UserDto{email='mateitavisss@gmail.com', name='Another Taste', role=Restaurant, location=1}
+  2022-05-12 01:37:31 INFO  RestaurantController:46 - Restaurant retrieved with the following information UserDto{email='mateitavisss@gmail.com', name='Another Taste', role=Restaurant, location=1}
+  2022-05-12 01:37:31 INFO  RestaurantController:102 - All food categories retrieved:
+  2022-05-12 01:37:31 INFO  RestaurantController:1511 - FoodcategoryDto{name='Breakfast', description='null'}
+  2022-05-12 01:37:31 INFO  RestaurantController:1511 - FoodcategoryDto{name='Lunch', description='null'}
+  2022-05-12 01:37:31 INFO  RestaurantController:1511 - FoodcategoryDto{name='Dessert', description='null'}
+  2022-05-12 01:37:31 INFO  RestaurantController:48 - List of RestaurantfoodDto retrieved with the following information
+  2022-05-12 01:37:31 INFO  RestaurantController:1511 - FoodcategoryDto{name='Beverages', description='null'}
+  2022-05-12 01:37:31 INFO  RestaurantController:1511 - FoodcategoryDto{name='Dinner', description='null'}
+  2022-05-12 01:37:31 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=null}
+  2022-05-12 01:37:31 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=null}
+  2022-05-12 01:37:31 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Imperial Coffee', foodDescription='The very best', foodCategory=4, price=20, quantity=null}
+  2022-05-12 01:37:31 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='aaaaaaaa', foodDescription='aaaaaaaaaaa', foodCategory=5, price=100, quantity=null}
+  2022-05-12 01:37:31 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Imperial Dessert', foodDescription='A tasty stuff', foodCategory=3, price=12, quantity=null}
+  2022-05-12 01:37:31 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Test', foodDescription='t', foodCategory=1, price=100, quantity=null}
+  2022-05-12 01:37:39 INFO  RestaurantController:163 - Food created with the following information RestaurantfoodDto{restaurant=21, foodName='da', foodDescription='d', foodCategory=1, price=10, quantity=null}
+  2022-05-12 01:37:39 INFO  RestaurantController:102 - All food categories retrieved:
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - FoodcategoryDto{name='Breakfast', description='null'}
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - FoodcategoryDto{name='Lunch', description='null'}
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - FoodcategoryDto{name='Dessert', description='null'}
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - FoodcategoryDto{name='Beverages', description='null'}
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - FoodcategoryDto{name='Dinner', description='null'}
+  2022-05-12 01:37:39 INFO  RestaurantController:46 - Restaurant retrieved with the following information UserDto{email='mateitavisss@gmail.com', name='Another Taste', role=Restaurant, location=1}
+  2022-05-12 01:37:39 INFO  RestaurantController:48 - List of RestaurantfoodDto retrieved with the following information
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=null}
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=null}
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Imperial Coffee', foodDescription='The very best', foodCategory=4, price=20, quantity=null}
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='aaaaaaaa', foodDescription='aaaaaaaaaaa', foodCategory=5, price=100, quantity=null}
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Imperial Dessert', foodDescription='A tasty stuff', foodCategory=3, price=12, quantity=null}
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Test', foodDescription='t', foodCategory=1, price=100, quantity=null}
+  2022-05-12 01:37:39 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='da', foodDescription='d', foodCategory=1, price=10, quantity=null}
+  2022-05-12 01:37:43 INFO  OrderController:46 - Retrieved the list of food status:
+  2022-05-12 01:37:43 INFO  OrderController:1511 - Status: DECLINED
+  2022-05-12 01:37:43 INFO  OrderController:1511 - Status: PENDING
+  2022-05-12 01:37:43 INFO  OrderController:1511 - Status: ACCEPTED
+  2022-05-12 01:37:43 INFO  OrderController:1511 - Status: IN DELIVERY
+  2022-05-12 01:37:43 INFO  OrderController:1511 - Status: DELIVERED
+  2022-05-12 01:37:43 INFO  RestaurantController:75 - Restaurant retrieved with the following information UserDto{email='mateitavisss@gmail.com', name='Another Taste', role=Restaurant, location=1}
+  2022-05-12 01:37:43 INFO  RestaurantController:77 - A list of OrderWithDetailsDto retrieved with the following information
+  2022-05-12 01:37:43 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=54, foodDtoList=[RestaurantfoodDto{restaurant=1, foodName='McBurger', foodDescription='Classic 2', foodCategory=5, price=10, quantity=7}], price=70}
+  2022-05-12 01:37:43 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=55, foodDtoList=[RestaurantfoodDto{restaurant=1, foodName='McPuisor', foodDescription='Classic', foodCategory=5, price=5, quantity=4}, RestaurantfoodDto{restaurant=1, foodName='McBurger', foodDescription='Classic 2', foodCategory=5, price=10, quantity=3}, RestaurantfoodDto{restaurant=1, foodName='McCoffee', foodDescription='Cafea', foodCategory=4, price=3, quantity=4}], price=62}
+  2022-05-12 01:37:43 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=65, foodDtoList=[RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=1}, RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=1}], price=110}
+  2022-05-12 01:37:43 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=66, foodDtoList=[RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=1}, RestaurantfoodDto{restaurant=21, foodName='Imperial Coffee', foodDescription='The very best', foodCategory=4, price=20, quantity=1}, RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=1}], price=130}
+  2022-05-12 01:37:43 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=68, foodDtoList=[RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=4}, RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=5}], price=540}
+  2022-05-12 01:37:46 INFO  RestaurantController:214 - User retrieved with information UserDto{email='mateitavisss@gmail.com', name='Another Taste', role=Restaurant, location=1}
+  2022-05-12 01:37:46 INFO  RestaurantController:216 - List of OrderWithDetailsDto retrieved with information 
+  2022-05-12 01:37:46 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=54, foodDtoList=[RestaurantfoodDto{restaurant=1, foodName='McBurger', foodDescription='Classic 2', foodCategory=5, price=10, quantity=7}], price=70}
+  2022-05-12 01:37:46 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=55, foodDtoList=[RestaurantfoodDto{restaurant=1, foodName='McPuisor', foodDescription='Classic', foodCategory=5, price=5, quantity=4}, RestaurantfoodDto{restaurant=1, foodName='McBurger', foodDescription='Classic 2', foodCategory=5, price=10, quantity=3}, RestaurantfoodDto{restaurant=1, foodName='McCoffee', foodDescription='Cafea', foodCategory=4, price=3, quantity=4}], price=62}
+  2022-05-12 01:37:46 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=65, foodDtoList=[RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=1}, RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=1}], price=110}
+  2022-05-12 01:37:46 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=66, foodDtoList=[RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=1}, RestaurantfoodDto{restaurant=21, foodName='Imperial Coffee', foodDescription='The very best', foodCategory=4, price=20, quantity=1}, RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=1}], price=130}
+  2022-05-12 01:37:46 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=68, foodDtoList=[RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=4}, RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=5}], price=540}
+  2022-05-12 01:37:46 INFO  RestaurantController:222 - Filtered OrderWithDetailsDto retrieved with information OrderWithDetailsDto{order=54, foodDtoList=[RestaurantfoodDto{restaurant=1, foodName='McBurger', foodDescription='Classic 2', foodCategory=5, price=10, quantity=7}], price=70}
+  2022-05-12 01:37:46 INFO  RestaurantController:225 - PDF created
+  2022-05-12 01:38:02 INFO  OrderController:46 - Retrieved the list of food status:
+  2022-05-12 01:38:02 INFO  OrderController:1511 - Status: DECLINED
+  2022-05-12 01:38:02 INFO  OrderController:1511 - Status: PENDING
+  2022-05-12 01:38:02 INFO  OrderController:1511 - Status: ACCEPTED
+  2022-05-12 01:38:02 INFO  OrderController:1511 - Status: IN DELIVERY
+  2022-05-12 01:38:02 INFO  OrderController:1511 - Status: DELIVERED
+  2022-05-12 01:38:02 INFO  RestaurantController:188 - Status changed to DELIVERED
+  2022-05-12 01:38:03 INFO  OrderController:46 - Retrieved the list of food status:
+  2022-05-12 01:38:03 INFO  OrderController:1511 - Status: DECLINED
+  2022-05-12 01:38:03 INFO  OrderController:1511 - Status: PENDING
+  2022-05-12 01:38:03 INFO  OrderController:1511 - Status: ACCEPTED
+  2022-05-12 01:38:03 INFO  OrderController:1511 - Status: IN DELIVERY
+  2022-05-12 01:38:03 INFO  OrderController:1511 - Status: DELIVERED
+  2022-05-12 01:38:03 INFO  RestaurantController:75 - Restaurant retrieved with the following information UserDto{email='mateitavisss@gmail.com', name='Another Taste', role=Restaurant, location=1}
+  2022-05-12 01:38:03 INFO  RestaurantController:77 - A list of OrderWithDetailsDto retrieved with the following information
+  2022-05-12 01:38:03 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=54, foodDtoList=[RestaurantfoodDto{restaurant=1, foodName='McBurger', foodDescription='Classic 2', foodCategory=5, price=10, quantity=7}], price=70}
+  2022-05-12 01:38:03 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=55, foodDtoList=[RestaurantfoodDto{restaurant=1, foodName='McPuisor', foodDescription='Classic', foodCategory=5, price=5, quantity=4}, RestaurantfoodDto{restaurant=1, foodName='McBurger', foodDescription='Classic 2', foodCategory=5, price=10, quantity=3}, RestaurantfoodDto{restaurant=1, foodName='McCoffee', foodDescription='Cafea', foodCategory=4, price=3, quantity=4}], price=62}
+  2022-05-12 01:38:03 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=65, foodDtoList=[RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=1}, RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=1}], price=110}
+  2022-05-12 01:38:03 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=66, foodDtoList=[RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=1}, RestaurantfoodDto{restaurant=21, foodName='Imperial Coffee', foodDescription='The very best', foodCategory=4, price=20, quantity=1}, RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=1}], price=130}
+  2022-05-12 01:38:03 INFO  RestaurantController:1511 - OrderWithDetailsDto{order=68, foodDtoList=[RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=4}, RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=5}], price=540}
+  2022-05-12 01:38:08 INFO  RestaurantController:102 - All food categories retrieved:
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - FoodcategoryDto{name='Breakfast', description='null'}
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - FoodcategoryDto{name='Lunch', description='null'}
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - FoodcategoryDto{name='Dessert', description='null'}
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - FoodcategoryDto{name='Beverages', description='null'}
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - FoodcategoryDto{name='Dinner', description='null'}
+  2022-05-12 01:38:08 INFO  RestaurantController:46 - Restaurant retrieved with the following information UserDto{email='mateitavisss@gmail.com', name='Another Taste', role=Restaurant, location=1}
+  2022-05-12 01:38:08 INFO  RestaurantController:48 - List of RestaurantfoodDto retrieved with the following information
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Sth', foodDescription='Da', foodCategory=1, price=10, quantity=null}
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Imperial Lunch', foodDescription='A tasty stuff', foodCategory=2, price=100, quantity=null}
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Imperial Coffee', foodDescription='The very best', foodCategory=4, price=20, quantity=null}
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='aaaaaaaa', foodDescription='aaaaaaaaaaa', foodCategory=5, price=100, quantity=null}
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Imperial Dessert', foodDescription='A tasty stuff', foodCategory=3, price=12, quantity=null}
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='Test', foodDescription='t', foodCategory=1, price=100, quantity=null}
+  2022-05-12 01:38:08 INFO  RestaurantController:1511 - RestaurantfoodDto{restaurant=21, foodName='da', foodDescription='d', foodCategory=1, price=10, quantity=null}
+  

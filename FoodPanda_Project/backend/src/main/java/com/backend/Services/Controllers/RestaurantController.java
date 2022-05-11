@@ -5,6 +5,7 @@ import com.backend.Services.Response.ApiResponse;
 import com.backend.Services.Response.ApiResponseBuilder;
 import com.backend.Services.Services.PdfMaker;
 import com.backend.Services.Services.RestaurantUserFacade;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,10 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/restaurant")
 public class RestaurantController {
+    /**
+     * Logger for the class
+     */
+    private static final Logger logger = Logger.getLogger(RestaurantController.class);
     /**
      * Restaurant User Facade that interacts with the controller,
      * @see com.backend.Services.Services.RestaurantUserFacade  for more information
@@ -38,13 +43,17 @@ public class RestaurantController {
         httpHeaders.add("Responded", "RestaurantController::viewMenu");
         try {
             UserDto restaurant = restaurantUserFacade.getRestaurantById(userId);
+            logger.info("Restaurant retrieved with the following information "+ restaurant);
             List<RestaurantfoodDto> restaurantfoodDtoList = restaurantUserFacade.getMenu(restaurant);
+            logger.info("List of RestaurantfoodDto retrieved with the following information");
+            restaurantfoodDtoList.forEach(logger::info);
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved menu")
                     .withHttpHeader(httpHeaders)
                     .withData(restaurantfoodDtoList)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from RestaurantController::viewMenu with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
@@ -63,13 +72,17 @@ public class RestaurantController {
         httpHeaders.add("Responded", "RestaurantController::viewOrdersWithDetails");
         try {
             UserDto restaurant = restaurantUserFacade.getRestaurantById(userId);
+            logger.info("Restaurant retrieved with the following information "+ restaurant);
             List<OrderWithDetailsDto> restaurantfoodDtoList = restaurantUserFacade.getOrders(restaurant);
+            logger.info("A list of OrderWithDetailsDto retrieved with the following information");
+            restaurantfoodDtoList.forEach(logger::info);
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved orders")
                     .withHttpHeader(httpHeaders)
                     .withData(restaurantfoodDtoList)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from RestaurantController::viewOrdersWithDetails with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
@@ -86,12 +99,15 @@ public class RestaurantController {
         httpHeaders.add("Responded", "RestaurantController::getFoodCategories");
         try {
             List<FoodcategoryDto> foodcategoryDtoList = restaurantUserFacade.getAllCategories();
+            logger.info("All food categories retrieved:");
+            foodcategoryDtoList.forEach(logger::info);
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved orders")
                     .withHttpHeader(httpHeaders)
                     .withData(foodcategoryDtoList)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from RestaurantController::getFoodCategories with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
@@ -110,17 +126,23 @@ public class RestaurantController {
         httpHeaders.add("Responded", "RestaurantController::getOrdersByState");
         try {
             UserDto restaurant = restaurantUserFacade.getRestaurantById(userId);
+            logger.info("Restaurant retrieved with the following information "+ restaurant);
             List<OrderWithDetailsDto> restaurantFoodList = restaurantUserFacade.getOrders(restaurant);
+            logger.info("OrderWithDetailsDto retrieved with the following information");
+            restaurantFoodList.forEach(logger::info);
             List<OrderWithDetailsDto> restaurantfoodDtoList =restaurantFoodList
                             .stream()
                             .filter(restaurantFood->restaurantFood.order.getStatus().getName().equalsIgnoreCase(orderState))
                             .collect(Collectors.toList());
+            logger.info("Filtered OrderWithDetailsDto retrieved with the following information");
+            restaurantFoodList.forEach(logger::info);
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved orders")
                     .withHttpHeader(httpHeaders)
                     .withData(restaurantfoodDtoList)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from RestaurantController::getOrdersByState with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
@@ -138,11 +160,13 @@ public class RestaurantController {
         httpHeaders.add("Responded", "RestaurantController::createNewFood");
         try {
             restaurantUserFacade.createNewFood(newFood);
+            logger.info("Food created with the following information "+newFood);
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully created food")
                     .withHttpHeader(httpHeaders)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from RestaurantController::createNewFood with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
@@ -161,11 +185,13 @@ public class RestaurantController {
         httpHeaders.add("Responded", "RestaurantController::changeStatus");
         try {
             restaurantUserFacade.changeOrderStatus(newStatus,orderDto);
+            logger.info("Status changed to "+newStatus);
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully updated status")
                     .withHttpHeader(httpHeaders)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from RestaurantController::changeStatus with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
@@ -185,19 +211,25 @@ public class RestaurantController {
         try {
             // convert JSON to Employee
             UserDto userDto = restaurantUserFacade.getRestaurantById(restaurantId);
+            logger.info("User retrieved with information " + userDto);
             List<OrderWithDetailsDto> orderList = restaurantUserFacade.getOrders(userDto);
+            logger.info("List of OrderWithDetailsDto retrieved with information ");
+            orderList.forEach(logger::info);
             OrderWithDetailsDto orderWithDetailsDto = orderList.stream()
                     .filter(order-> Objects.equals(order.getOrder().getId(), orderId))
                     .collect(Collectors.toList())
                     .get(0);
+            logger.info("Filtered OrderWithDetailsDto retrieved with information " + orderWithDetailsDto);
             // generate the file
             byte[] document = PdfMaker.createPdf(orderWithDetailsDto);
+            logger.info("PDF created");
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully updated status")
                     .withHttpHeader(httpHeaders)
                     .withData(document)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from RestaurantController::getPDF with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();

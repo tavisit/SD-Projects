@@ -1,6 +1,5 @@
 package com.backend.Data.DTOs;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,4 +15,16 @@ public class RestaurantfoodDto implements Serializable {
     private FoodcategoryDto foodCategory;
     private Integer price;
     private Integer quantity;
+
+    @Override
+    public String toString() {
+        return "RestaurantfoodDto{" +
+                "restaurant=" + restaurant.getId() +
+                ", foodName='" + foodName + '\'' +
+                ", foodDescription='" + foodDescription + '\'' +
+                ", foodCategory=" + foodCategory.getId() +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

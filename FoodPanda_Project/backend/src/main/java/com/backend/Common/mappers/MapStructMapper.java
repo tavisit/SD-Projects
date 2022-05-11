@@ -2,7 +2,8 @@ package com.backend.Common.mappers;
 
 import com.backend.Data.DTOs.*;
 import com.backend.Data.Entities.*;
-import org.mapstruct.*;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
 import java.util.List;
 
@@ -33,6 +34,7 @@ public interface MapStructMapper {
     Foodstatus foodStatusDtoToStatus(FoodstatusDto foodstatusDto);
 
     List<FoodstatusDto> listFoodStatusToFoodStatusDto(List<Foodstatus> foodstatusList);
+    List<Foodstatus> listFoodStatusDtoToFoodStatus(List<FoodstatusDto> foodstatusDtoList);
 
     RestaurantfoodDto restaurantFoodToRestaurantFoodDto(Restaurantfood restaurantfood);
 

@@ -1,7 +1,10 @@
 package com.backend.Services.Services;
 
 import com.backend.Common.mappers.MapStructMapperImpl;
-import com.backend.Data.DTOs.*;
+import com.backend.Data.DTOs.FoodstatusDto;
+import com.backend.Data.DTOs.OrderAdditionalDto;
+import com.backend.Data.DTOs.OrderDto;
+import com.backend.Data.DTOs.UserDto;
 import com.backend.Data.Entities.Order;
 import com.backend.Data.Repositories.FoodstatusRepository;
 import com.backend.Data.Repositories.OrderRepository;
@@ -26,6 +29,13 @@ public class OrderService {
      */
     @Autowired
     private FoodstatusRepository foodstatusRepository;
+
+
+    public OrderService(OrderRepository orderRepository, FoodstatusRepository foodstatusRepository) {
+        this.orderRepository = orderRepository;
+        this.foodstatusRepository = foodstatusRepository;
+    }
+
 
     /**
      * Get all the orders from a certain client
@@ -64,6 +74,14 @@ public class OrderService {
         orderDto.setUser(client);
         orderDto.setRestaurant(restaurantDto);
         orderDto.setPrice(0);
+
+        if(orderAdditional == null)
+        {
+            orderAdditional = new OrderAdditionalDto();
+            orderAdditional.setAdditionalInformation("Nothing");
+            orderAdditional.setLatitude(0.0f);
+            orderAdditional.setLongitude(0.0f);
+        }
         orderDto.setLatitude(orderAdditional.getLatitude());
         orderDto.setLongitude(orderAdditional.getLongitude());
         orderDto.setAdditionalInformation(orderAdditional.getAdditionalInformation());
@@ -76,15 +94,16 @@ public class OrderService {
      * Update the order repository with a custom order
      * @param orderDto the modified order
      * @throws Exception if the data cannot be save into the database
+     * @return the new updated order
      */
-    public void updateOrder(OrderDto orderDto) throws Exception{
+    public OrderDto updateOrder(OrderDto orderDto) throws Exception{
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
-        mapStructMapper.orderToOrderDto(orderRepository.save(mapStructMapper.orderDtoToOrder(orderDto)));
+        return mapStructMapper.orderToOrderDto(orderRepository.save(mapStructMapper.orderDtoToOrder(orderDto)));
     }
 
     /**
      * Get all the order statuses from database
-     * @return a lsit of food statuses
+     * @return a list of food statuses
      */
     public List<FoodstatusDto> getOrderStatuses(){
         MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();

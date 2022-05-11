@@ -4,13 +4,11 @@ package com.backend.Services.Services;
 import com.backend.Data.DTOs.OrderDto;
 import com.backend.Data.DTOs.OrderWithDetailsDto;
 import com.itextpdf.text.*;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import java.io.ByteArrayOutputStream;
-import java.util.List;
 
 /**
  * A pdf maker helper class that creates a byte stream containing order information
@@ -36,7 +34,7 @@ public class PdfMaker {
         document.add(new Header("Report",""));
 
         document.add(new Paragraph("Order",boldTitle));
-        document.add(new Paragraph(orderDto.getRestaurant().toString()));
+        document.add(new Paragraph("Email: "+orderDto.getRestaurant().getName()));
         document.add(new Paragraph("Id of the order: " + orderDto.getId(),boldSmall));
         document.add(new Paragraph("Current Status of the order: " + orderDto.getStatus().getName(),boldSmall));
         document.add(new Paragraph("Total Price: " + order.getPrice(),boldSmall));
@@ -59,7 +57,8 @@ public class PdfMaker {
 
         document.add(new Paragraph("Additional information: " + orderDto.getAdditionalInformation(),boldSmall));
         document.add(new Paragraph("Client Information",boldTitle));
-        document.add(new Paragraph(orderDto.getUser().toString()));
+        document.add(new Paragraph("Name: "+orderDto.getUser().getName()));
+        document.add(new Paragraph("Email: "+orderDto.getUser().getEmail()));
         document.add(new Paragraph("Latitude: " + orderDto.getLatitude(),boldSmall));
         document.add(new Paragraph("Longitude: " + orderDto.getLongitude(),boldSmall));
 

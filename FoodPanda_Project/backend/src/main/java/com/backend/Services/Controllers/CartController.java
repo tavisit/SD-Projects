@@ -1,10 +1,14 @@
 package com.backend.Services.Controllers;
 
-import com.backend.Data.DTOs.*;
+import com.backend.Data.DTOs.AddCartDto;
+import com.backend.Data.DTOs.OrderAdditionalDto;
+import com.backend.Data.DTOs.RestaurantfoodDto;
+import com.backend.Data.DTOs.UserDto;
 import com.backend.Services.Response.ApiResponse;
 import com.backend.Services.Response.ApiResponseBuilder;
 import com.backend.Services.Services.BuyerFacade;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -19,6 +23,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/cart")
 public class CartController {
+    /**
+     * Logger for the class
+     */
+    private static final Logger logger = Logger.getLogger(CartController.class);
     /**
      * Buyer Facade that interacts with the controller,
      * @see com.backend.Services.Services.BuyerFacade  for more information
@@ -37,12 +45,17 @@ public class CartController {
         httpHeaders.add("Responded", "CartController::getCart");
         try {
             List<RestaurantfoodDto> userCart = buyerFacade.seeCart(userSite);
+
+            logger.info("From user "+userSite+" got the cart:");
+            userCart.forEach(logger::info);
+
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved cart")
                     .withHttpHeader(httpHeaders)
                     .withData(userCart)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from CartController::getCart with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
@@ -61,12 +74,14 @@ public class CartController {
         try {
             UserDto userDto = userSite;
             userDto = buyerFacade.emptyCart(userDto);
+            logger.info("From user "+userSite+" deleted the cart");
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully emptied Cart")
                     .withHttpHeader(httpHeaders)
                     .withData(userDto)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from CartController::deleteCart with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
@@ -85,12 +100,14 @@ public class CartController {
 
         try {
             UserDto userDto = buyerFacade.addToCart(addCartDto.getUserDto(),addCartDto.getRestaurantfoodDto());
+            logger.info("From user "+userDto+" added to the cart:\n"+userDto.getMyCart());
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully added to cart")
                     .withHttpHeader(httpHeaders)
                     .withData(userDto)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from CartController::addToCart with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
@@ -110,6 +127,7 @@ public class CartController {
         try {
             UserDto userDto = userSite;
             userDto = buyerFacade.createNewOrder(userDto,userDto.getMyCart(), new ObjectMapper().readValue(orderAdditional, OrderAdditionalDto.class));
+            logger.info("From user "+userDto+" submitted order");
 
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully placed order")
                     .withHttpHeader(httpHeaders)
@@ -117,6 +135,7 @@ public class CartController {
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from CartController::submitOrder with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();

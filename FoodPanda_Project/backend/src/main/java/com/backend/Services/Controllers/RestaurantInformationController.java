@@ -5,6 +5,7 @@ import com.backend.Data.DTOs.UserDto;
 import com.backend.Services.Response.ApiResponse;
 import com.backend.Services.Response.ApiResponseBuilder;
 import com.backend.Services.Services.BuyerFacade;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/restaurantInfo")
 public class RestaurantInformationController {
+    /**
+     * Logger for the class
+     */
+    private static final Logger logger = Logger.getLogger(RestaurantInformationController.class);
     /**
      * Buyer Facade that interacts with the controller,
      * @see com.backend.Services.Services.BuyerFacade  for more information
@@ -39,12 +44,15 @@ public class RestaurantInformationController {
         httpHeaders.add("Responded", "RestaurantInformationController::getAll");
         try {
             List<UserDto> restaurants = buyerFacade.getAllRestaurants(location);
+            logger.info("List of restaurants retrieved with the following information:");
+            restaurants.forEach(logger::info);
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved restaurants")
                     .withHttpHeader(httpHeaders)
                     .withData(restaurants)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from BuyerController::getAll with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
@@ -63,12 +71,15 @@ public class RestaurantInformationController {
         httpHeaders.add("Responded", "RestaurantInformationController::getByName");
         try {
             List<UserDto> restaurants = buyerFacade.getByName(restaurantName,location);
+            logger.info("List of restaurants retrieved with the following information:");
+            restaurants.forEach(logger::info);
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved restaurants")
                     .withHttpHeader(httpHeaders)
                     .withData(restaurants)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from BuyerController::getByName with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();
@@ -86,13 +97,19 @@ public class RestaurantInformationController {
         httpHeaders.add("Responded", "RestaurantInformationController::getRestaurantMenu");
         try {
             UserDto restaurant = buyerFacade.getRestaurantById(restaurantID);
+            logger.info("Restaurant retrieved with the following information: "+restaurant);
+
             List<RestaurantfoodDto> restaurantfoodDtoList = buyerFacade.getMenu(restaurant);
+            logger.info("Restaurant food retrieved");
+            restaurantfoodDtoList.forEach(logger::info);
+
             return new ApiResponseBuilder<>(HttpStatus.OK.value(), "Successfully retrieved restaurants")
                     .withHttpHeader(httpHeaders)
                     .withData(restaurantfoodDtoList)
                     .build();
 
         } catch (Exception ex) {
+            logger.error("Error from BuyerController::getRestaurantMenu with error "+ex.getMessage());
             return new ApiResponseBuilder<>(HttpStatus.BAD_REQUEST.value(), ex.getMessage())
                     .withHttpHeader(httpHeaders)
                     .build();

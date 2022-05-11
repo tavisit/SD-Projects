@@ -4,6 +4,7 @@ import com.backend.Common.mappers.MapStructMapperImpl;
 import com.backend.Data.DTOs.*;
 import com.backend.Data.Entities.OrderXFood;
 import com.backend.Data.Repositories.OrderXFoodRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,11 @@ public class OrderXFoodService {
      */
     @Autowired
     private OrderXFoodRepository orderXFoodRepository;
+
+    public OrderXFoodService(OrderXFoodRepository orderXFoodRepository) {
+        this.orderXFoodRepository = orderXFoodRepository;
+    }
+
 
     /**
      * Get all food that is bound to a certain order
@@ -47,7 +53,7 @@ public class OrderXFoodService {
      * @param user the user that has the cart
      * @return a list of food menus
      */
-    public List<RestaurantfoodDto> seeCart(UserDto user){
+    public List<RestaurantfoodDto> seeCart(@NotNull UserDto user){
         return user.getMyCart();
     }
 
@@ -66,7 +72,7 @@ public class OrderXFoodService {
      * @param orders a list of orders that need to be querried
      * @return a list that contains all the information regarding an order (food, user, restaurant)
      */
-    public List<OrderWithDetailsDto> getOrdersWithDetailsFromOrderList(List<OrderDto> orders){
+    public List<OrderWithDetailsDto> getOrdersWithDetailsFromOrderList(@NotNull List<OrderDto> orders){
         List<OrderWithDetailsDto> actualOrders = new ArrayList<>();
         orders.forEach(orderDto -> {
             List<RestaurantfoodDto> food = this.getAllByOrder(orderDto);

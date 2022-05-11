@@ -38,6 +38,13 @@ public class RestaurantUserFacade {
     @Autowired
     private RestaurantFoodService restaurantFoodService;
 
+    public RestaurantUserFacade(UserService userService, OrderXFoodService orderXFoodService, OrderService orderService, RestaurantFoodService restaurantFoodService) {
+        this.userService = userService;
+        this.orderXFoodService = orderXFoodService;
+        this.orderService = orderService;
+        this.restaurantFoodService = restaurantFoodService;
+    }
+
     /**
      * Get the restaurant by id
      * @param id the id of the restaurant

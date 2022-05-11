@@ -8,4 +8,12 @@ import lombok.Setter;
 public class AddCartDto {
     private UserDto userDto;
     private RestaurantfoodDto restaurantfoodDto;
+
+    @Override
+    public String toString() {
+        return "AddCartDto{" +
+                "userDto=" + userDto +
+                ", restaurantfoodDto=" + restaurantfoodDto +
+                '}';
+    }
 }

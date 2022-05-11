@@ -1,10 +1,8 @@
 package com.backend.Data.DTOs;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.Column;
 import java.io.Serializable;
 
 @Getter
@@ -18,4 +16,17 @@ public class OrderDto implements Serializable {
     private Float longitude;
     private Float latitude;
     private String additionalInformation;
+
+    @Override
+    public String toString() {
+        return "OrderDto{" +
+                "restaurant=" + restaurant.getId() +
+                ", user=" + user.getId() +
+                ", status=" + status +
+                ", price=" + price +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", additionalInformation='" + additionalInformation + '\'' +
+                '}';
+    }
 }

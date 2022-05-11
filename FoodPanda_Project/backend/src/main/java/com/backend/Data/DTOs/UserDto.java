@@ -1,7 +1,5 @@
 package com.backend.Data.DTOs;
 
-import com.backend.Data.DTOs.RoleDto;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,9 +20,11 @@ public class UserDto implements Serializable {
 
     @Override
     public String toString() {
-        return "User with:\n" +
-                "Email: " + email + "\n" +
-                "Name: " + name + "\n" +
-                "Role: " + role.toString() + "\n";
+        return "UserDto{" +
+                "email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", role=" + role +
+                ", location=" + location.getId() +
+                '}';
     }
 }

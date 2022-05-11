@@ -41,6 +41,14 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public UserService(UserRepository userRepository, RoleRepository roleRepository, LocationService locationService,PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+        this.locationService = locationService;
+        this.passwordEncoder = passwordEncoder;
+    }
+
+
     /**
      * Get user by id
      * @param id the id of the user

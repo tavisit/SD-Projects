@@ -14,4 +14,12 @@ public class OrderWithDetailsDto implements Serializable {
     public List<RestaurantfoodDto> foodDtoList;
     public Integer price;
 
+    @Override
+    public String toString() {
+        return "OrderWithDetailsDto{" +
+                "order=" + order.getId() +
+                ", foodDtoList=" + foodDtoList +
+                ", price=" + price +
+                '}';
+    }
 }
