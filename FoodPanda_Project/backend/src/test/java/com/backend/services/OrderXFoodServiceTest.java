@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 
 import javax.inject.Inject;
 
@@ -102,6 +103,34 @@ class OrderXFoodServiceTest {
 
     @Test
     void getOrdersWithDetailsFromOrderList(){
-        // TODO
+        OrderDto orderDto = new OrderDto();
+        MapStructMapperImpl mapStructMapper = new MapStructMapperImpl();
+        List<OrderXFood> getOrdersList = new ArrayList<>();
+        int nrOrderXFood = 10;
+
+        for(int i=0;i<nrOrderXFood;i++){
+            OrderXFood orderXFood = new OrderXFood();
+            orderXFood.setId(i);
+            orderXFood.setQuantity(i);
+            orderXFood.setOrder(mapStructMapper.orderDtoToOrder(orderDto));
+            Restaurantfood restaurantfood = new Restaurantfood();
+            restaurantfood.setId(i);
+            restaurantfood.setPrice(i);
+            restaurantfood.setFoodName(String.valueOf(i));
+            restaurantfood.setFoodDescription(String.valueOf(i));
+            orderXFood.setFood(restaurantfood);
+            getOrdersList.add(orderXFood);
+        }
+        when(orderXFoodRepository.getAllByOrder(any())).thenReturn(getOrdersList);
+
+        List<OrderDto> orders = new ArrayList<>();
+        for(int i=0;i<nrOrderXFood;i++){
+            OrderDto orderDto1 = mapStructMapper.orderToOrderDto(getOrdersList.get(i).getOrder());
+            orders.add(orderDto1);
+        }
+
+        List<OrderWithDetailsDto> orderDtoList = orderXFoodService.getOrdersWithDetailsFromOrderList(orders);
+
+        Assertions.assertEquals(getOrdersList.size(),orderDtoList.size());
     }
 }

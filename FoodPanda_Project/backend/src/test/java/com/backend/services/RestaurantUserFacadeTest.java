@@ -88,7 +88,7 @@ class RestaurantUserFacadeTest {
 
             restaurantUserFacade.getRestaurantById(0);
         }catch (Exception ignored){
-            Assertions.assertThat(true);
+            Assertions.assertThat(false);
         }
     }
 
